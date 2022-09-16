@@ -23,9 +23,11 @@ module.exports = {
         ],
     },
     plugins: [
-        // copy files from the /public/ folder into the output folder
         new CopyPlugin({
-            patterns: [{from: ".", to: ".", context: "public"}]
+            patterns: [
+                { from: ".", to: ".", context: "extension" },       // extension file/s (i.e. manifest.json)
+                { from: ".", to: ".", context: "resources" }        // resources, e.g. icons and images
+            ]
         }),
     ],
 };

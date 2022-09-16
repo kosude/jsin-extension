@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="66.337357mm"
+   height="20.51664mm"
+   viewBox="0 0 66.337357 20.51664"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5, 2022-02-04)"
+   sodipodi:docname="map.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#222222"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="2"
+     inkscape:cx="62.25"
+     inkscape:cy="93.5"
+     inkscape:window-width="1920"
+     inkscape:window-height="1045"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-130.28519,-120.83706)"
+     style="display:inline">
+    <g
+       id="g16117">
+      <path
+         d="m 133.51934,131.09538 q 0,1.25323 0.19203,2.31444 0.19203,1.0511 0.63672,2.04155 0.4447,0.99046 1.18249,2.02135 0.73779,1.02078 1.82932,2.20326 l -1.85964,1.67772 q -1.59686,-1.37452 -2.76924,-2.90063 -1.17238,-1.52611 -1.8091,-3.33522 -0.63673,-1.8091 -0.63673,-4.02247 0,-2.21337 0.63673,-4.02247 0.63672,-1.80911 1.8091,-3.33522 1.17238,-1.52612 2.76924,-2.90063 l 1.85964,1.67772 q -1.3543,1.47558 -2.20327,2.80966 -0.84896,1.32398 -1.24313,2.71871 -0.39416,1.38462 -0.39416,3.05223 z"
+         id="path13675-8"
+         style="font-weight:bold;font-size:19.7081px;line-height:1.25;font-family:'Fira Code';-inkscape-font-specification:'Fira Code, Bold';display:inline;fill:#ffffff;stroke-width:0.492703" />
+      <path
+         d="m 193.3884,131.09538 q 0,-1.66761 -0.39416,-3.05223 -0.39416,-1.39473 -1.24313,-2.71871 -0.83885,-1.33408 -2.20326,-2.80966 l 1.85963,-1.67772 q 1.59687,1.37451 2.76925,2.90063 1.17237,1.52611 1.8091,3.33522 0.63672,1.8091 0.63672,4.02247 0,2.21337 -0.63672,4.02247 -0.63673,1.80911 -1.8091,3.33522 -1.17238,1.52611 -2.76925,2.90063 l -1.85963,-1.67772 q 1.09152,-1.18248 1.82931,-2.20326 0.7378,-1.03089 1.18249,-2.02135 0.4447,-0.99045 0.63672,-2.04155 0.19203,-1.06121 0.19203,-2.31444 z"
+         id="path13687-4"
+         style="font-weight:bold;font-size:19.7081px;line-height:1.25;font-family:'Fira Code';-inkscape-font-specification:'Fira Code, Bold';display:inline;fill:#ffffff;stroke-width:0.492703" />
+      <path
+         style="display:inline;fill:#ffffff;fill-opacity:0.996078;stroke-width:0.192556"
+         d="m 160.58059,130.75848 c -1.35066,0.34745 -2.77644,1.08916 -3.88017,2.01854 -0.83927,0.70669 -0.86542,0.76242 -0.86542,1.84271 0,0.61268 0.0442,1.11396 0.098,1.11396 0.0539,0 0.51901,-0.28889 1.0336,-0.642 1.86063,-1.27676 5.20878,-1.9133 8.51531,-1.61892 2.59781,0.23128 4.13126,0.72469 5.66014,1.82121 l 0.63984,0.4589 v -1.21908 c 0,-1.18839 -0.0196,-1.23518 -0.78442,-1.86134 -1.07993,-0.88426 -2.47337,-1.58056 -3.84902,-1.92332 -1.4769,-0.36797 -5.12116,-0.3628 -6.56783,0.01 z"
+         id="path162944-8" />
+      <path
+         d="m 143.59317,125.62545 8.22288,5.08935 v 2.37644 l -8.19133,5.08935 -1.50367,-2.26077 6.83487,-4.0168 -6.83487,-3.89062 z"
+         id="path15829"
+         style="font-weight:bold;font-size:27.643px;line-height:1.25;font-family:'Fira Code';-inkscape-font-specification:'Fira Code, Bold';fill:#ffffff;stroke-width:0.512617" />
+      <path
+         d="m 183.83724,125.42254 1.42248,2.29231 -6.68982,3.98526 6.68982,3.91165 -1.47401,2.36592 -8.02985,-5.08935 v -2.35541 z"
+         id="path15831"
+         style="font-weight:bold;font-size:27.643px;line-height:1.25;font-family:'Fira Code';-inkscape-font-specification:'Fira Code, Bold';fill:#ffffff;stroke-width:0.507538" />
+    </g>
+  </g>
+</svg>
