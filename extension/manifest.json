@@ -20,7 +20,8 @@
             "128":"./jsin/128x128.png"
         },
 
-		"default_title": "jSin, your average JavaScript injector"
+		"default_title": "jSin, your average JavaScript injector",
+        "default_popup": "./popup.html"
 	},
 
 	"background": {
