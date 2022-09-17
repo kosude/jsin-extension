@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 		<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
-        <title>jSin - your rulesets</title>
+        <title>jSin - dashboard</title>
         <link rel="shortcut icon" href="./jsin/48x48.png" type="image/x-icon">
 
         <meta charset="UTF-8">
@@ -21,6 +21,56 @@
     </head>
 
     <body class="dashboard">
+        <div class="wrapper">
+            <header>
+				<span id="logo">jSin</span>
+				<span id="pipe">|</span>
+				<span id="db">your rulesets</span>
+            </header>
+
+            <div class="rulesets">
+                <div id="add-ruleset">
+                    <button class="create-ruleset-button" title="Add a new ruleset">
+                        <img src="./symbolic/plus.svg">
+                    </button>
+                </div>
+
+                <ul>
+                    <div id="no-rulesets">
+                        <img id="emoticon" src="./emoticon/0.svg">
+                        <!-- the 'create one' button here acts the same as the '+' button which normally appears -->
+                        <h2>
+                            you haven't added any rulesets yet.
+                            <br>
+                            <a class="create-ruleset-button" title="Add a new ruleset">create one.</a>
+                        </h2>
+                    </div>
+                </ul>
+            </div>
+
+            <footer>
+                <div>
+                    <a id="ghlogo" href="https://github.com/kosude/jsin-extension-2" title="GitHub repository">
+                        <img src="./org/github.svg">
+                    </a>
+
+                    <br>
+
+                    <span id="cred">
+                        (c) 2022 Jack Bennett<br>
+                        <i>
+                            If you notice any ~wacky~ behaviour, <b>try reloading first</b>. If that doesn't work,
+                            <a href="https://github.com/kosude/jsin-extension-2">submit an issue</a>.
+                        </i>
+                    </span>
+                </div>
+            </footer>
+
+            <div class="corner-logo">
+                <img src="./jsin/jsin.svg">
+            </div>
+        </div>
+
         <!-- this file will be output by webpack when building. -->
 		<script src="./index.js"></script>
     </body>

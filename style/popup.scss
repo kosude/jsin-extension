@@ -11,7 +11,7 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-@import "./common.scss";
+@import "./vars.scss";
 
 // we control everything within the scope of body.popup so that it does not affect other pages (e.g. dashboard)
 body.popup {
@@ -19,12 +19,6 @@ body.popup {
 	height: 150px;
 
 	background-color: $col-bg-darkest;
-
-	overflow: hidden;
-
-    a {
-        cursor: pointer;
-    }
 
     .metainf {
         text-align: center;
@@ -50,7 +44,7 @@ body.popup {
 
         span {
             color: $col-title;
-            font-family: "Lato";
+            font-family: $font-heading;
         }
 
         #logo {
@@ -93,13 +87,13 @@ body.popup {
         align-items: center;
 
         #rulesets-btn {
-            background-color: $col-bg-light;
+            background-color: $col-bg-lightest;
             padding: 10px 30px;
 
             border-radius: 5px;
 
             color: $col-title;
-            font-family: "Lato";
+            font-family: $font-heading;
             text-decoration: none;
             font-size: 12pt;
 

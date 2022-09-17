@@ -11,4 +11,284 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-@import "./common.scss";
+@import "./vars.scss";
+
+// fade from a white to grey colour
+// (used by the emoticon that shows when there are no rulesets)
+//
+@keyframes emoticon-fade-white-to-grey {
+	0% {
+		filter: brightness(0.9);
+	}
+	100% {
+	}
+}
+
+// we control everything within the scope of body.dashboard so that it does not affect other pages (e.g. dashboard)
+body.dashboard {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+
+	display: flex;
+	justify-content: center;
+
+    .wrapper {
+        width: 70%;
+        height: 100%;
+
+        header {
+            text-align: center;
+            line-height: 20px;
+
+            position: fixed;
+            width: 100%;
+            height: 13.5%;
+            left: 0;
+            top: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            user-select: none;
+
+            span {
+                color: $col-title;
+                font-family: $font-heading;
+
+                &#logo {
+                    font-weight: bold;
+                    font-size: 7vh;
+                }
+
+                &#pipe {
+                    transform: scale(1.1, 2) translateY(-2px);
+                    -moz-transform: scale(1.1, 2) translateY(-2px);
+
+                    display: inline-block;
+                    font-size: 4.5vh;
+                    font-weight: bold;
+
+                    padding: 0 20px;
+                }
+
+                &#db {
+                    font-size: 4vh;
+                }
+            }
+        }
+
+        .rulesets {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+
+            user-select: none;
+
+            #add-ruleset {
+                button {
+                    background-color: $col-text-subtle;
+                    border: none;
+                    border-radius: 50px;
+
+                    cursor: pointer;
+
+                    width: 40px;
+                    height: 40px;
+
+                    align-items: center;
+                    justify-content: center;
+                    display: flex;
+
+                    transition: all 0.1s ease-in-out;
+
+                    position: fixed;
+                    top: 18%;
+                    right: 17%;
+
+                    z-index: 100;
+
+                    box-shadow:  3px 4px 23px 1px rgba(0, 0, 0, 0.41);
+                    -webkit-box-shadow:  3px 4px 23px 1px rgba(0, 0, 0, 0.41);
+
+                    img {
+                        filter: invert(0);
+                        width: 65%;
+
+                        transition: all 0.1s ease-in-out;
+                    }
+
+                    &:hover {
+                        background-color: $col-title; // yellow
+
+                        img {
+                            filter: invert(1);
+                        }
+                    }
+                }
+            }
+
+            ul {
+                width: 100%;
+                height: 70%;
+
+                background-color: $col-bg-darkest;
+                border-radius: 15px;
+
+                overflow-x: hidden;
+
+                padding: 0;
+                margin: 0;
+
+                #no-rulesets {
+                    color: $col-text-subtle;
+                    font-family: $font-source;
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    width: 0;
+                    height: 0;
+
+                    z-index: 50;
+
+                    h2 {
+                        // some edit buttons don't work without this setting
+                        pointer-events: none;
+
+                        opacity: 0;
+                        z-index: 50;
+                    }
+                }
+            }
+
+            &.empty {
+                #add-ruleset {
+                    // hide the circle + button when there are no rulesets because there is a
+                    // dialogue that shows up instead.
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                    pointer-events: none;
+                }
+
+                ul {
+                    #no-rulesets {
+                        width: 100%;
+                        height: 100%;
+
+                        z-index: 50;
+
+                        #emoticon {
+                            height: 45px;
+                            filter: brightness(0.4); /* make SVG darker to fit with --col-fgdark */
+
+                            margin-bottom: 24pt;
+
+                            z-index: 50;
+
+                            user-select: none;
+
+                            &.animated {
+                                animation: fade-white-to-gray 0.2s ease-in-out;
+                            }
+                        }
+
+                        h2 {
+                            // make sure all pointer events are taken by the no-rulesets dialogue
+                            // when the ruleset list is empty.
+                            pointer-events: all;
+
+                            opacity: 1;
+
+                            font-size: 26px;
+                            font-weight: normal;
+
+                            margin: 0;
+
+                            text-align: center;
+
+                            z-index: 50;
+                        }
+                    }
+                }
+            }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15%;
+
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+
+            user-select: none;
+
+            #ghlogo {
+                img {
+                    width: 20px;
+                    // make white when not being hovered over
+                    filter: brightness(0) invert(1);
+                }
+
+                &:hover {
+                    img {
+                        // return to normal colour (blue) when being hovered over
+                        filter: brightness(1) invert(0);
+                    }
+                }
+            }
+
+            #cred {
+                font-family: $font-heading;
+                font-size: 12pt;
+                color: white;
+            }
+        }
+
+        .corner-logo {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+
+            margin: 40px;
+
+            cursor: pointer;
+
+            user-select: none;
+
+            img {
+                width: 48px;
+
+                transition: all 0.1s ease-in-out;
+
+                &:hover {
+                    filter: brightness(1.3);
+                    transform: scale(1.1);
+                }
+
+                &:active {
+                    filter: brightness(1.0);
+                    transform: scale(1.0);
+
+                    transition: all 0.0s;
+                }
+            }
+        }
+    }
+}
