@@ -35,7 +35,7 @@ function addOpenTabListener(elementName: string, link: string): void {
 if (PopupContainer != null) {
     document.addEventListener("DOMContentLoaded", (): void => {
         // make the appropriate buttons work
-        // TODO: update this when the repo merge happens#
+        // TODO: update this when the repo merge happens (also update all other references to this URL!!!)
         addOpenTabListener("#ghlogo", "https://github.com/kosude/jsin-extension-2");
         addOpenTabListener("#rulesets-btn", "./dashboard.html");
 
