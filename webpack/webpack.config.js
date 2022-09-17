@@ -1,4 +1,5 @@
 const path = require('path');
+const pkgJson = require("../package.json")
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -41,7 +42,12 @@ module.exports = (env) => {
                 patterns: [
                     { from: "./resources/", to: "." },              // resources, e.g. icons and images
                     { from: "./pages/", to: "." },                  // HTML web pages,
-                    { from: manifestUrl, to: "./manifest.json" }    // extension manifest file
+                    {
+                        from: manifestUrl,
+                        to: "./manifest.json",                      // extension manifest file
+                        // set extension version to that set in the package.json file.
+                        transform: (content) => content.toString().replace("$pkgVersion", pkgJson.version)
+                    }
                 ]
             }),
             new MiniCssExtractPlugin()
