@@ -1,0 +1,59 @@
+name: Build and release
+on:
+  workflow_dispatch:
+    inputs:
+      is_prerelease:
+        type: boolean
+        description: Mark as prerelease
+      version:
+        type: string
+        description: Release version
+        required: true
+      body:
+        type: string
+        description: Release body text
+        required: false
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v3
+
+      - name: Clean Node.js package install
+        run: |
+          npm ci
+
+      - name: Build for Firefox
+        run: |
+          npm run build-firefox
+
+      - name: Zip Firefox build output
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r firefox.zip . -i ./dist/firefox/*
+
+      - name: Build for Chromium
+        run: |
+          npm run build-chromium
+
+      - name: Zip Chromium build output
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r chromium.zip . -i ./dist/chromium/*
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: ${{ inputs.is_prerelease }}
+          name: ${{ inputs.version }}
+          tag_name: ${{ inputs.version }}
+          body: ${{ inputs.body }}
+          files: |
+            ./firefox.zip
+            ./chromium.zip

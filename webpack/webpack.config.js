@@ -2,43 +2,49 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
-    mode: "production",
-    entry: {
-        background: path.resolve(__dirname, "index.js"),
-    },
-    output: {
-        path: path.join(__dirname, "../dist"),
-        filename: "[name].js",
-    },
-    resolve: {
-        extensions: ["*", ".ts", ".js"],
-    },
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/i,
-                loader: "ts-loader",
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.scss$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
+module.exports = (env) => {
+    // determine manifest file to copy into dist
+    // this is depending on the selected browser (environment variable)
+    let manifestUrl = `./extension/${env.browser}.json`
+
+    return {
+        mode: "production",
+        entry: {
+            index: path.resolve(__dirname, "./index.js"),
+        },
+        output: {
+            path: path.join(__dirname, `../dist/${env.browser}`),
+            filename: "[name].js",
+        },
+        resolve: {
+            extensions: ["*", ".ts", ".js"],
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.ts$/,
+                    loader: "ts-loader",
+                    exclude: /node_modules/,
+                },
+                {
+                    test: /\.scss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        "css-loader",
+                        "sass-loader"
+                    ]
+                }
+            ],
+        },
+        plugins: [
+            new CopyPlugin({
+                patterns: [
+                    { from: "./resources/", to: "." },              // resources, e.g. icons and images
+                    { from: "./pages/", to: "." },                  // HTML web pages,
+                    { from: manifestUrl, to: "./manifest.json" }    // extension manifest file
                 ]
-            }
+            }),
+            new MiniCssExtractPlugin()
         ],
-    },
-    plugins: [
-        new CopyPlugin({
-            patterns: [
-                { from: ".", to: ".", context: "extension" },       // extension file/s (i.e. manifest.json)
-                { from: ".", to: ".", context: "resources" },       // resources, e.g. icons and images
-                { from: ".", to: ".", context: "pages" },           // HTML web pages
-            ]
-        }),
-        new MiniCssExtractPlugin()
-    ],
+    }
 };

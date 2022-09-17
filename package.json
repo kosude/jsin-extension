@@ -3,7 +3,8 @@
     "description": "Your average JavaScript injector.",
     "main": "index.js",
     "scripts": {
-        "build": "webpack --config ./webpack/webpack.config.js"
+        "build-firefox": "webpack --config ./webpack/webpack.config.js --env browser=firefox",
+        "build-chromium": "webpack --config ./webpack/webpack.config.js --env browser=chromium"
     },
     "author": "Jack Bennett",
     "license": "MIT",

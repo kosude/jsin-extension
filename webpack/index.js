@@ -1,4 +1,3 @@
-import "./../src/background.ts"
-import "./../src/popup.ts"
+import "./../src/helloworld.ts"
 
-import "./../style/popup.scss"
+import "./style.js"

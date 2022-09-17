@@ -12,22 +12,10 @@
 	},
 
 	"action": {
-		"default_icon": {
-            "16": "./jsin/16x16.png",
-            "32": "./jsin/32x32.png",
-            "48": "./jsin/48x48.png",
-            "64": "./jsin/64x64.png",
-            "128":"./jsin/128x128.png"
-        },
-
 		"default_title": "jSin, your average JavaScript injector",
-        "default_popup": "./popup.html"
-	},
+		"default_icon": "./jsin/32x32.png",
 
-	"background": {
-		"scripts": [
-			"./background.js"
-		]
+        "default_popup": "./popup.html"
 	},
 
 	"browser_specific_settings": {
