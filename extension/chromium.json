@@ -18,11 +18,5 @@
         "default_popup": "./popup.html"
 	},
 
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "jsin@jabenuk"
-		}
-	},
-
 	"version": "0.1.0"
 }

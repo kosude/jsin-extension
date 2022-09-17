@@ -11,10 +11,19 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
+// We can use this to check if this is running on the popup.html page.
+// Since webpack will bundle all TS into one JS file, this is worth doing.
+//
+const PopupContainer: HTMLBodyElement | null = document.querySelector<HTMLBodyElement>("body.popup");
+
 // Add tab-opening functionality to buttons on a popup, which is normally limited with extensions
 //
 function addOpenTabListener(elementName: string, link: string): void {
-    let element = document.querySelector<HTMLElement>(elementName);
+    if (PopupContainer == null) {
+        return;
+    }
+
+    let element = PopupContainer.querySelector<HTMLElement>(`${elementName}`);
 
     element?.addEventListener("click", (): void => {
         chrome.tabs.create({ url: link });
@@ -23,15 +32,17 @@ function addOpenTabListener(elementName: string, link: string): void {
     });
 }
 
-document.addEventListener("DOMContentLoaded", (): void => {
-    // make the appropriate buttons work
-    // TODO: update this when the repo merge happens#
-    addOpenTabListener("#ghlogo", "https://github.com/kosude/jsin-extension-2");
-    addOpenTabListener("#rulesets-btn", "./dashboard.html");
+if (PopupContainer != null) {
+    document.addEventListener("DOMContentLoaded", (): void => {
+        // make the appropriate buttons work
+        // TODO: update this when the repo merge happens#
+        addOpenTabListener("#ghlogo", "https://github.com/kosude/jsin-extension-2");
+        addOpenTabListener("#rulesets-btn", "./dashboard.html");
 
-    // update the version from the package.json file
-    let versionElement = document.querySelector<HTMLSpanElement>("#version");
-    if (versionElement != null) {
-        versionElement.innerHTML = `v${require("./../package.json").version}`;
-    }
-});
+        // update the version from the package.json file
+        let versionElement = document.querySelector<HTMLSpanElement>("#version");
+        if (versionElement != null) {
+            versionElement.innerHTML = `v${require("./../package.json").version}`;
+        }
+    });
+}

@@ -1,108 +1,122 @@
+// -----------------------------------------------------------------------------
+// jSin: Your average JavaScript injector.
+// Copyright (c) 2022 Jack Bennett
+// -----------------------------------------------------------------------------
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY  KIND,  EXPRESS  OR
+// IMPLIED, INCLUDING BUT NOT LIMITED  TO  THE  WARRANTIES  OF  MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT  SHALL  THE
+// AUTHORS OR COPYRIGHT HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR  OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// -----------------------------------------------------------------------------
+
 $col-title: rgb(255, 200, 17);
 $col-vnum: rgb(255, 104, 17);
 $col-bg1: rgb(39, 39, 39);
 $col-bg2: rgb(58, 58, 58);
 
-body {
+// we control everything within the scope of body.popup so that it does not affect other pages (e.g. dashboard)
+body.popup {
 	width: 250px;
 	height: 150px;
 
 	background-color: $col-bg1;
 
 	overflow: hidden;
-}
 
-a {
-    cursor: pointer;
-}
-
-.metainf {
-	text-align: center;
-	line-height: 20px;
-
-	user-select: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-
-	pointer-events: none;
-
-	position: fixed;
-	width: 100%;
-	height: 76%;
-	left: 0;
-	top: 0;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-
-	margin-top: 25px;
-
-    span {
-        color: $col-title;
-        font-family: "Lato";
+    a {
+        cursor: pointer;
     }
 
-    #logo {
-        font-weight: bold;
-        font-size: 28pt;
-    }
+    .metainf {
+        text-align: center;
+        line-height: 20px;
 
-    #version {
-        color: $col-vnum;
-        font-weight: normal;
-        font-size: 12pt;
-    }
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
 
-    #ghlogo {
-        pointer-events: auto;
+        pointer-events: none;
 
-        img {
-            width: 15px;
-            padding-top: 5px;
-            filter: brightness(0) invert(1);
+        position: fixed;
+        width: 100%;
+        height: 76%;
+        left: 0;
+        top: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        margin-top: 25px;
+
+        span {
+            color: $col-title;
+            font-family: "Lato";
         }
 
-        &:hover {
+        #logo {
+            font-weight: bold;
+            font-size: 28pt;
+        }
+
+        #version {
+            color: $col-vnum;
+            font-weight: normal;
+            font-size: 12pt;
+        }
+
+        #ghlogo {
+            pointer-events: auto;
+
             img {
-                filter: brightness(1) invert(0);
+                width: 15px;
+                padding-top: 5px;
+                filter: brightness(0) invert(1);
+            }
+
+            &:hover {
+                img {
+                    filter: brightness(1) invert(0);
+                }
             }
         }
     }
-}
 
-.content {
-	width: 100%;
-	height: 100%;
+    .content {
+        width: 100%;
+        height: 100%;
 
-	padding-top: 15px;
+        padding-top: 15px;
 
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    #rulesets-btn {
-        background-color: $col-bg2;
-        padding: 10px 30px;
+        #rulesets-btn {
+            background-color: $col-bg2;
+            padding: 10px 30px;
 
-        border-radius: 5px;
+            border-radius: 5px;
 
-        color: $col-title;
-        font-family: "Lato";
-        text-decoration: none;
-        font-size: 12pt;
+            color: $col-title;
+            font-family: "Lato";
+            text-decoration: none;
+            font-size: 12pt;
 
-        transition: all 0.15s ease-in-out;
+            transition: all 0.15s ease-in-out;
 
-        user-select: none;
+            user-select: none;
 
-        &:hover {
-            background-color: $col-title;
-            padding: 12px 36px;
+            &:hover {
+                background-color: $col-title;
+                padding: 12px 36px;
 
-            color: $col-bg1;
-            font-weight: bold;
+                color: $col-bg1;
+                font-weight: bold;
+            }
         }
     }
 }
