@@ -2,17 +2,18 @@ name: Build and release
 on:
   workflow_dispatch:
     inputs:
-      is_prerelease:
-        type: boolean
-        description: Mark as prerelease
-      version:
+      name_append:
         type: string
-        description: Release version
-        required: true
+        description: Extra text (appended to release name)
+        required: false
       body:
         type: string
         description: Release body text
         required: false
+      is_prerelease:
+        type: boolean
+        description: Mark as prerelease
+        required: true
 
 jobs:
   build-and-release:
@@ -47,12 +48,18 @@ jobs:
         with:
           args: zip -qq -r chromium.zip . -i ./dist/chromium/*
 
+      - name: Get project version
+        id: version-getter
+        run: |
+          version=$(./utils/get_version.sh)
+          echo "::set-output name=version::$version"
+
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: ${{ inputs.is_prerelease }}
-          name: ${{ inputs.version }}
-          tag_name: ${{ inputs.version }}
+          name: v${{ steps.version-getter.outputs.version }}${{ inputs.name_append }}
+          tag_name: v${{ steps.version-getter.outputs.version }}
           body: ${{ inputs.body }}
           files: |
             ./firefox.zip
