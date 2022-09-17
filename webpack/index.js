@@ -1,3 +1,3 @@
-import "./../src/helloworld.ts"
+import "./../src/popup.ts"
 
 import "./style.js"
