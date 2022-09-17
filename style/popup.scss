@@ -11,17 +11,14 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-$col-title: rgb(255, 200, 17);
-$col-vnum: rgb(255, 104, 17);
-$col-bg1: rgb(39, 39, 39);
-$col-bg2: rgb(58, 58, 58);
+@import "./common.scss";
 
 // we control everything within the scope of body.popup so that it does not affect other pages (e.g. dashboard)
 body.popup {
 	width: 250px;
 	height: 150px;
 
-	background-color: $col-bg1;
+	background-color: $col-bg-darkest;
 
 	overflow: hidden;
 
@@ -96,7 +93,7 @@ body.popup {
         align-items: center;
 
         #rulesets-btn {
-            background-color: $col-bg2;
+            background-color: $col-bg-light;
             padding: 10px 30px;
 
             border-radius: 5px;
@@ -114,7 +111,7 @@ body.popup {
                 background-color: $col-title;
                 padding: 12px 36px;
 
-                color: $col-bg1;
+                color: $col-bg-light;
                 font-weight: bold;
             }
         }
