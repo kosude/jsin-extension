@@ -11,28 +11,11 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-@import "./vars.scss";
+// get version from the package.json file
+const ExtensionVersion = require("../package.json").version;
 
-body {
-    overflow: hidden;
-	background-color: $col-bg-light;
-
-    a {
-        color: $col-title; // yellow
-        cursor: pointer;
-    }
-
-    // references to the extension's version number
-    .version {
-        color: $col-vnum;
-    }
-}
-
-// configuration for material symbols
-.material-symbols-outlined {
-	font-variation-settings:
-		'FILL' 0,
-		'wght' 400,
-		'GRAD' 0,
-		'opsz' 48;
-}
+// This will be run on all pages
+document.querySelectorAll<HTMLSpanElement>(".version").forEach((element): void => {
+    // update all spans with class 'version' to show the package version
+    element.innerHTML = `v${ExtensionVersion}`;
+});

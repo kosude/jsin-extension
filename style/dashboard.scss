@@ -258,6 +258,14 @@ body.dashboard {
                 font-family: $font-heading;
                 font-size: 12pt;
                 color: white;
+
+                #extName {
+                    color: $col-title;
+                }
+
+                #extName, .version {
+                    font-style: italic;
+                }
             }
         }
 

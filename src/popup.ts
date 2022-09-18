@@ -38,11 +38,5 @@ if (PopupContainer != null) {
         // TODO: update this when the repo merge happens (also update all other references to this URL!!!)
         addOpenTabListener("#ghlogo", "https://github.com/kosude/jsin-extension-2");
         addOpenTabListener("#rulesets-btn", "./dashboard.html");
-
-        // update the version from the package.json file
-        let versionElement = document.querySelector<HTMLSpanElement>("#version");
-        if (versionElement != null) {
-            versionElement.innerHTML = `v${require("./../package.json").version}`;
-        }
     });
 }
