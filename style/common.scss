@@ -17,6 +17,15 @@ body {
     overflow: hidden;
 	background-color: $col-bg-light;
 
+    // configuration for material symbols
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48;
+    }
+
     a {
         color: $col-title; // yellow
         cursor: pointer;
@@ -26,13 +35,8 @@ body {
     .version {
         color: $col-vnum;
     }
-}
 
-// configuration for material symbols
-.material-symbols-outlined {
-	font-variation-settings:
-		'FILL' 0,
-		'wght' 400,
-		'GRAD' 0,
-		'opsz' 48;
+    .no-action {
+        pointer-events: none;
+    }
 }

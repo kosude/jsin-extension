@@ -16,14 +16,20 @@
 //
 const PopupContainer: HTMLBodyElement | null = document.querySelector<HTMLBodyElement>("body.popup");
 
+// Check if on the popup page
+//
+function isPopup(): boolean {
+    return PopupContainer != null;
+}
+
 // Add tab-opening functionality to buttons on a popup, which is normally limited with extensions
 //
 function addOpenTabListener(elementName: string, link: string): void {
-    if (PopupContainer == null) {
+    if (!isPopup()) {
         return;
     }
 
-    let element = PopupContainer.querySelector<HTMLElement>(`${elementName}`);
+    let element = PopupContainer!.querySelector<HTMLElement>(`${elementName}`);
 
     element?.addEventListener("click", (): void => {
         chrome.tabs.create({ url: link });
@@ -32,7 +38,7 @@ function addOpenTabListener(elementName: string, link: string): void {
     });
 }
 
-if (PopupContainer != null) {
+if (isPopup()) {
     document.addEventListener("DOMContentLoaded", (): void => {
         // make the appropriate buttons work
         // TODO: update this when the repo merge happens (also update all other references to this URL!!!)

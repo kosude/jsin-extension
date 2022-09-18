@@ -1,0 +1,111 @@
+// -----------------------------------------------------------------------------
+// jSin: Your average JavaScript injector.
+// Copyright (c) 2022 Jack Bennett
+// -----------------------------------------------------------------------------
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY  KIND,  EXPRESS  OR
+// IMPLIED, INCLUDING BUT NOT LIMITED  TO  THE  WARRANTIES  OF  MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT  SHALL  THE
+// AUTHORS OR COPYRIGHT HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR  OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// -----------------------------------------------------------------------------
+
+@import "./vars.scss";
+
+.ruleset {
+    width: 100%;
+    height: 8ch;
+
+    border-bottom: 4px solid $col-bg-light;
+
+    padding: 20px;
+
+    z-index: 100;
+
+    display: flex;
+
+    background-color: $col-bg-darkest;
+
+    &:nth-child(odd) {
+        background-color: $col-bg-dark;
+    }
+
+    #identifier {
+        #name {
+            color: $col-text-light;
+            font-family: $font-heading;
+            font-size: 20pt;
+            font-weight: bold;
+        }
+
+        #url {
+            color: $col-text-subtle;
+            font-family: $font-source;
+            font-size: 11pt;
+            font-weight: bold;
+
+            line-height: 3ch;
+
+            a {
+                &:hover {
+                    color: $col-title;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    ul {
+        height: 100%;
+
+        padding: 0;
+        margin-right: 12px;
+
+        display: flex;
+        align-items: center;
+
+        > * {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+
+            color: $col-text-subtle;
+
+            cursor: pointer;
+
+            margin-right: 4px;
+        }
+
+        #edit {
+            &:hover {
+                color: $col-edit;
+            }
+        }
+
+        #delete {
+            &:hover {
+                color: $col-delete;
+            }
+        }
+
+        #status {
+            width: 20px;
+            height: 20px;
+
+            margin-left: 4px;
+
+            border-radius: 100%;
+
+            &.enabled {
+                background-color: $col-ruleset-enabled;
+                box-shadow:  0px 0px 10px 1px $col-ruleset-enabled;
+            }
+
+            &.disabled {
+                background-color: $col-ruleset-disabled;
+                box-shadow:  0px 0px 10px 1px $col-ruleset-disabled;
+            }
+        }
+    }
+}

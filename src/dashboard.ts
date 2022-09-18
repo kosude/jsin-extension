@@ -15,3 +15,9 @@
 // Since webpack will bundle all TS into one JS file, this is worth doing.
 //
 const DashboardContainer: HTMLBodyElement | null = document.querySelector<HTMLBodyElement>("body.dashboard");
+
+// Check if on the dashboard page
+//
+function isDashboard(): boolean {
+    return DashboardContainer != null;
+}
