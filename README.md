@@ -4,7 +4,7 @@
 
 [![MIT Licence](https://img.shields.io/github/license/kosude/jsin-extension-2)](./LICENCE)
 
-jSin (or JSIN; **J**ava**S**cript **IN**jector) *[pronounced jay-sin]* is a simple, free-and-open-source JavaScript injector extension.
+jSin (or JSIN; **J**ava**S**cript **IN**jector) is a simple, free-and-open-source JavaScript injector extension.
 It aims to be as simple and minimal as possible.
 
 ## jSin will not be published on the Chrome Web Store
