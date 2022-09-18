@@ -159,35 +159,30 @@ class Ruleset {
 
         // save the new ruleset to extension storage
         let keyPair = { key: JSON.stringify(this) };
-        // chrome.storage.sync.set(keyPair).then(() => {
+        browser.storage.sync.set(keyPair).then(() => {
             // initialise the HTML element for the ruleset
             this._element = this.initSkeletonHTMLElement();
             this._element = this.populateHTMLElement(this._element);
 
             // append the HTML element to the list of rulesets in the DOM
             document.querySelector(".rulesets > ul")!.appendChild(this._element);
-        // }, (error: string) => {
-        //     console.error(`Failed to create new ruleset!\nSee more information below...\n\n${error}`);
-        // });
+        }, (error: string) => {
+            console.error(`Failed to create new ruleset!\nSee more information below...\n\n${error}`);
+        });
     }
 
     // Delete the ruleset from extension storage and remove its HTML element
     //
     public delete() {
         // delete from extension storage
-        // chrome.storage.sync.remove(this._key).then(() => {
+        browser.storage.sync.remove(this._key).then(() => {
             // remove HTML element
             this.element.remove();
 
             // remove from the parent list
             this._parentList.rulesets.splice(this._parentList.rulesets.indexOf(this), 1);
-        // }, (error: string) => {
-        //     console.error(`Failed to delete ruleset!\nSee more information below...\n\n${error}`);
-        // })
+        }, (error: string) => {
+            console.error(`Failed to delete ruleset!\nSee more information below...\n\n${error}`);
+        });
     }
 }
-
-let testList: RulesetList = new RulesetList();
-let test: Ruleset = new Ruleset(testList, { name: "test ruleset", url: "testurl", src: "dsjfk", enabled: true });
-let test2: Ruleset = new Ruleset(testList, { name: "test ruleset", url: "testurl", src: "dsjfk", enabled: true });
-let test3: Ruleset = new Ruleset(testList, { name: "test ruleset", url: "testurl", src: "dsjfk", enabled: true });

@@ -18,6 +18,12 @@
         "default_popup": "./popup.html"
 	},
 
+	"permissions": [
+		"activeTab",
+		"storage",
+		"tabs"
+	],
+
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "jsin@jabenuk"

@@ -47,6 +47,10 @@ module.exports = (env) => {
                         to: "./manifest.json",                      // extension manifest file
                         // set extension version to that set in the package.json file.
                         transform: (content) => content.toString().replace("$pkgVersion", pkgJson.version)
+                    },
+                    {                                               // browser-polyfill library (must be referenced in HTML)
+                        from: "./node_modules/webextension-polyfill/dist/browser-polyfill.min.js",
+                        to: "./lib/"
                     }
                 ]
             }),
