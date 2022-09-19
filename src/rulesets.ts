@@ -31,6 +31,13 @@ interface RulesetDetails {
     enabled: boolean;
 }
 
+// A key-value pair for a ruleset
+// Data is stored as stringified JSON.
+//
+interface RulesetPair {
+    [key: string]: string;
+}
+
 // Class to represent a ruleset
 //
 class Ruleset {
@@ -41,18 +48,19 @@ class Ruleset {
 
     // The ruleset key in extension storage
     //
-    private _key: any;
+    private _key!: string;
     public get key() { return this._key; }
 
     // User details about the ruleset
     //
-    private _details: RulesetDetails;
+    private _details!: RulesetDetails;
 
     // Get/set the 'name' field (in the '_details' object)
     // This updates the ruleset DOM element.
     //
     public get name() { return this._details.name; }
     public set name(val: string) {
+
         this._details.name = val;
 
         // as this element should have been created in the constructor, it's generally safe to assume it is not null
@@ -180,31 +188,57 @@ class Ruleset {
         return updatedElement;
     }
 
-    // Create a ruleset
+    // Generate a key for the ruleset
     //
-    public constructor(details: RulesetDetails) {
-        this._details = details;
+    private generateKey(): string {
+        return Math.random().toString(36).slice(2, 10);
+    }
 
-        // random key instead of hashing details as multiple rulesets can have the same details
-        this._key = Math.random().toString(36).slice(2, 10);
-
-        let keyPair = { key: JSON.stringify(this) };
-
-        // save the new ruleset to extension storage
-        browser.storage.sync.set(keyPair).then(() => {
-        }, (error: string) => {
-            console.error(`Failed to create new ruleset!\nSee more information below...\n\n${error}`);
-        });
-
+    // Create a ruleset
+    // If `details` is a string, it is treated as a key of a ruleset that already exists in extension storage.
+    //
+    public constructor(details: RulesetDetails | string) {
         // initialise the HTML element for the ruleset
         this._element = this.initSkeletonHTMLElement();
         this._element = this.populateHTMLElement(this._element);
 
-        // initial run of ruleset details setters to initialise their respective HTML elements
-        this.name = this.name;
-        this.url = this.url;
-        this.src = this.src;
-        this.enabled = this.enabled;
+        if (typeof details === "string") {
+            browser.storage.sync.get(details).then((rsStr) => {
+                this._key = details;
+
+                // get basic JSON object from key. this represents the ruleset:
+                let rsObj = JSON.parse(rsStr[details]);
+
+                // copy data from the JSON object into this object
+                this._details = {
+                    name: rsObj._details.name,
+                    url: rsObj._details.url,
+                    src: rsObj._details.src,
+                    enabled: rsObj._details.enabled
+                };
+
+                // initial run of ruleset details setters to initialise their respective HTML elements
+                // we must run this here so that it is run AFTER getting the data from storage.
+                // otherwise the data will not display.
+                this.name = this.name;
+                this.url = this.url;
+                this.src = this.src;
+                this.enabled = this.enabled;
+            });
+        } else {
+            // assuming `details` is an object of interface type RulesetDetails
+            this._details = details;
+
+            // random key instead of hashing details as multiple rulesets can have the same details
+            this._key = this.generateKey();
+
+            // initial run of ruleset details setters to initialise their respective HTML elements
+            // TODO: this is poor form since we could attempt to reuse code from above instead
+            this.name = this.name;
+            this.url = this.url;
+            this.src = this.src;
+            this.enabled = this.enabled;
+        }
     }
 
     // Delete the ruleset from extension storage and remove its HTML element
@@ -216,39 +250,72 @@ class Ruleset {
             console.error(`Failed to delete ruleset!\nSee more information below...\n\n${error}`);
         });
     }
+
+    // Overwrite data in extension storage with local data in this object.
+    //
+    public save(): void {
+        // create JSON-stringified key-value pair to store ruleset
+        // the key (this._key) is built in the constructor.
+        let keyPair: RulesetPair = {};
+        keyPair[this._key] = JSON.stringify(this);
+
+        // save the new ruleset to extension storage
+        browser.storage.sync.set(keyPair).then(() => {
+        }, (error: string) => {
+            console.error(`Failed to sync ruleset!\nSee more information below...\n\n${error}`);
+        });
+    }
 }
 
 // Class to represent a list of rulesets
 // Only one of these should actually exist!
 //
 class RulesetList {
-    // List of ruleset items
+    // Initialise a ruleset list
     //
-    public rulesets: Ruleset[] = [];
+    public constructor() {
+        // get all rulesets currently in extension storage
+        this.sync();
+    }
 
-    // Add a ruleset to the list via either its class representation
+    // Add a ruleset to the list and save it to extension storage
     //
-    public addRuleset(ruleset: Ruleset | RulesetDetails): void {
-        if (ruleset instanceof Ruleset) {
-            this.rulesets.push(ruleset);
-        } else {
-            this.rulesets.push(new Ruleset(ruleset));
-        }
+    public addRuleset(details: RulesetDetails) {
+        let rs = new Ruleset(details);
+        rs.save();
+
+        // now that the new ruleset is in extension storage, sync the list so it is shown
+        // (as well as all other rulesets in extension storage)
+        this.sync();
     }
 
     // Update the specified u-list DOM element to show the rulesets that are part of this list
     //
-    public visualise(ul: HTMLUListElement): void {
+    public visualise(ul: HTMLUListElement, rulesetList: Ruleset[]): void {
         // remove existing children
         ul.replaceChildren();
 
         // add each ruleset's DOM element to the u-list
-        this.rulesets.forEach((rs): void => {
+        rulesetList.forEach((rs): void => {
             ul.appendChild(rs.element);
         });
     }
-}
 
-let list = new RulesetList();
-list.addRuleset({ name: "test name", url: "test url", src: "test source", enabled: true });
-list.visualise(document.querySelector<HTMLUListElement>(".rulesets > ul")!);
+    // Update with the list of rulesets stored in extension storage.
+    //
+    public sync(): void {
+        // get rulesets from extension storage
+        browser.storage.sync.get().then((rsList) => {
+            let rulesets = [];
+
+            // iterate through rulesets in extension storage
+            for (const [key, value] of Object.entries(rsList)) {
+                // add each ruleset to the array of rulesets
+                rulesets.push(new Ruleset(key));
+            }
+
+            // visualise this new array of rulesets
+            this.visualise(document.querySelector(".rulesets > ul")!, rulesets);
+        });
+    }
+}
