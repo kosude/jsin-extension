@@ -11,7 +11,8 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-// We can use this to check if this is running on the dashboard.html page.
+import * as rs from "./rulesets";
+
 // Since webpack will bundle all TS into one JS file, this is worth doing.
 //
 const DashboardContainer: HTMLBodyElement | null = document.querySelector<HTMLBodyElement>("body.dashboard");
@@ -20,4 +21,59 @@ const DashboardContainer: HTMLBodyElement | null = document.querySelector<HTMLBo
 //
 function isDashboard(): boolean {
     return DashboardContainer != null;
+}
+
+// Class to represent local dashboard state
+//
+class Dashboard {
+    // List of rulesets
+    //
+    private _rulesetList: rs.RulesetList;
+    public get rulesetList() { return this._rulesetList; }
+
+    // HTML element with which to represent the list of rulesets (_rulesetList)
+    //
+    private _rulesetListElement: HTMLUListElement;
+
+    public constructor(rulesetListElement: HTMLUListElement) {
+        this._rulesetList = new rs.RulesetList;
+        this._rulesetListElement = rulesetListElement;
+
+        this._rulesetList.visualise(this._rulesetListElement);
+    }
+
+    // Wrapper to add a ruleset to the Dashboard's ruleset list and immediately display this new ruleset
+    //
+    public addRuleset(details: rs.RulesetDetails): void {
+        this._rulesetList.addRuleset(details);
+        this.updateRulesetsView();
+    }
+
+    // Update the dashboard's ruleset list
+    public updateRulesetsView(): void {
+        this._rulesetList.visualise(this._rulesetListElement);
+    }
+}
+
+// Dashboard state instance
+//
+var dashboardState: Dashboard;
+
+if (isDashboard()) {
+    // initialise dashboard state class
+    dashboardState = new Dashboard(document.querySelector(".rulesets > ul")!);
+
+    document.addEventListener("DOMContentLoaded", (): void => {
+        // add functionality to the 'add ruleset' buttons
+        document.querySelectorAll(".create-ruleset-button").forEach((button): void => {
+            button.addEventListener("click", (): void => {
+                dashboardState.addRuleset({
+                    name: "New ruleset",
+                    url: "",
+                    src: "// Write script here",
+                    enabled: true
+                });
+            });
+        });
+    });
 }

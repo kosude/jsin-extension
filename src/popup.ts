@@ -24,14 +24,8 @@ function isPopup(): boolean {
 
 // Add tab-opening functionality to buttons on a popup, which is normally limited with extensions
 //
-function addOpenTabListener(elementName: string, link: string): void {
-    if (!isPopup()) {
-        return;
-    }
-
-    let element = PopupContainer!.querySelector<HTMLElement>(`${elementName}`);
-
-    element?.addEventListener("click", (): void => {
+function addOpenTabListener(element: HTMLElement, link: string): void {
+    element.addEventListener("click", (): void => {
         chrome.tabs.create({ url: link });
         // close the popup window
         window.close();
@@ -42,7 +36,7 @@ if (isPopup()) {
     document.addEventListener("DOMContentLoaded", (): void => {
         // make the appropriate buttons work
         // TODO: update this when the repo merge happens (also update all other references to this URL!!!)
-        addOpenTabListener("#ghlogo", "https://github.com/kosude/jsin-extension-2");
-        addOpenTabListener("#rulesets-btn", "./dashboard.html");
+        addOpenTabListener(PopupContainer!.querySelector("#ghlogo")!, "https://github.com/kosude/jsin-extension-2");
+        addOpenTabListener(PopupContainer!.querySelector("#rulesets-btn")!, "./dashboard.html");
     });
 }
