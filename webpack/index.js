@@ -1,6 +1,13 @@
-import "../src/version.ts";
-import "../src/popup.ts";
-import "../src/rulesets.ts";
-import "../src/dashboard.ts";
+import "../src/lib/obj/Dashboard.ts";
+import "../src/lib/obj/Ruleset.ts";
+import "../src/lib/obj/RulesetDetails.ts";
+import "../src/lib/obj/RulesetList.ts";
+import "../src/lib/obj/RulesetPair.ts";
+
+import "../src/lib/runner.ts";
+
+import "../src/runtime/dashboard.ts";
+import "../src/runtime/popup.ts";
+import "../src/runtime/version.ts";
 
 import "./style.js";

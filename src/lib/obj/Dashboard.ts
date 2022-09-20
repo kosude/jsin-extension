@@ -11,24 +11,15 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-import * as rs from "./rulesets";
-
-// Since webpack will bundle all TS into one JS file, this is worth doing.
-//
-const DashboardContainer: HTMLBodyElement | null = document.querySelector<HTMLBodyElement>("body.dashboard");
-
-// Check if on the dashboard page
-//
-function isDashboard(): boolean {
-    return DashboardContainer != null;
-}
+import RulesetDetails from "./RulesetDetails";
+import RulesetList from "./RulesetList";
 
 // Class to represent local dashboard state
 //
-class Dashboard {
+export default class Dashboard {
     // List of rulesets
     //
-    private _rulesetList: rs.RulesetList;
+    private _rulesetList: RulesetList;
     public get rulesetList() { return this._rulesetList; }
 
     // HTML element with which to represent the list of rulesets (_rulesetList)
@@ -36,7 +27,7 @@ class Dashboard {
     private _rulesetListElement: HTMLUListElement;
 
     public constructor(rulesetListElement: HTMLUListElement) {
-        this._rulesetList = new rs.RulesetList;
+        this._rulesetList = new RulesetList;
         this._rulesetListElement = rulesetListElement;
 
         this._rulesetList.visualise(this._rulesetListElement);
@@ -44,7 +35,7 @@ class Dashboard {
 
     // Wrapper to add a ruleset to the Dashboard's ruleset list and immediately display this new ruleset
     //
-    public addRuleset(details: rs.RulesetDetails): void {
+    public addRuleset(details: RulesetDetails): void {
         this._rulesetList.addRuleset(details);
         this.updateRulesetsView();
     }
@@ -53,27 +44,4 @@ class Dashboard {
     public updateRulesetsView(): void {
         this._rulesetList.visualise(this._rulesetListElement);
     }
-}
-
-// Dashboard state instance
-//
-var dashboardState: Dashboard;
-
-if (isDashboard()) {
-    // initialise dashboard state class
-    dashboardState = new Dashboard(document.querySelector(".rulesets > ul")!);
-
-    document.addEventListener("DOMContentLoaded", (): void => {
-        // add functionality to the 'add ruleset' buttons
-        document.querySelectorAll(".create-ruleset-button").forEach((button): void => {
-            button.addEventListener("click", (): void => {
-                dashboardState.addRuleset({
-                    name: "New ruleset",
-                    url: "",
-                    src: "// Write script here",
-                    enabled: true
-                });
-            });
-        });
-    });
 }

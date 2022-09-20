@@ -11,23 +11,13 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-$font-heading: "Lato", sans-serif;
-$font-source: "Fira Mono", monospace;
+// Run a function on a specific HTML page by checking if the body has the specified class
+// Null will be returned if the specified function did not run (i.e. body did not have the specified class).
+//
+export function runOnPage<T>(classCheck: string, fun: () => T): T | null {
+    if (document.body.classList.contains(classCheck)) {
+        return fun();
+    }
 
-$col-title: rgb(255, 200, 17);
-$col-vnum: rgb(255, 104, 17);
-
-$col-bg-lightest: rgb(58, 58, 58);
-$col-bg-light: rgb(39, 39, 39);
-$col-bg-dark: rgb(36, 36, 36);
-$col-bg-darkest: rgb(34, 34, 34);
-
-$col-text-light: rgb(221, 221, 221);
-$col-text-subtle: rgb(100, 100, 100);
-
-$col-edit: rgb(61, 139, 255);
-$col-save: rgb(43, 128, 255);
-$col-delete: rgb(216, 63, 63);
-
-$col-ruleset-enabled: rgb(32, 184, 52);
-$col-ruleset-disabled: rgb(209, 30, 30);
+    return null;
+}

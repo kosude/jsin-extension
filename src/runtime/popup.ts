@@ -11,32 +11,24 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-// We can use this to check if this is running on the popup.html page.
-// Since webpack will bundle all TS into one JS file, this is worth doing.
-//
-const PopupContainer: HTMLBodyElement | null = document.querySelector<HTMLBodyElement>("body.popup");
-
-// Check if on the popup page
-//
-function isPopup(): boolean {
-    return PopupContainer != null;
-}
+import * as runner from "../lib/runner";
 
 // Add tab-opening functionality to buttons on a popup, which is normally limited with extensions
 //
 function addOpenTabListener(element: HTMLElement, link: string): void {
     element.addEventListener("click", (): void => {
         chrome.tabs.create({ url: link });
+
         // close the popup window
         window.close();
     });
 }
 
-if (isPopup()) {
+runner.runOnPage("popup", (): void => {
     document.addEventListener("DOMContentLoaded", (): void => {
         // make the appropriate buttons work
         // TODO: update this when the repo merge happens (also update all other references to this URL!!!)
-        addOpenTabListener(PopupContainer!.querySelector("#ghlogo")!, "https://github.com/kosude/jsin-extension-2");
-        addOpenTabListener(PopupContainer!.querySelector("#rulesets-btn")!, "./dashboard.html");
+        addOpenTabListener(document.querySelector("#ghlogo")!, "https://github.com/kosude/jsin-extension-2");
+        addOpenTabListener(document.querySelector("#rulesets-btn")!, "./dashboard.html");
     });
-}
+});

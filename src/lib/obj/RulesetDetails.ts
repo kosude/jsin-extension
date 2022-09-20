@@ -11,23 +11,22 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-$font-heading: "Lato", sans-serif;
-$font-source: "Fira Mono", monospace;
+// User details about a ruleset
+//
+export default interface RulesetDetails {
+    // Ruleset name
+    //
+    name: string;
 
-$col-title: rgb(255, 200, 17);
-$col-vnum: rgb(255, 104, 17);
+    // URL to deploy the ruleset on
+    //
+    url: string;
 
-$col-bg-lightest: rgb(58, 58, 58);
-$col-bg-light: rgb(39, 39, 39);
-$col-bg-dark: rgb(36, 36, 36);
-$col-bg-darkest: rgb(34, 34, 34);
+    // Ruleset source
+    //
+    src: string;
 
-$col-text-light: rgb(221, 221, 221);
-$col-text-subtle: rgb(100, 100, 100);
-
-$col-edit: rgb(61, 139, 255);
-$col-save: rgb(43, 128, 255);
-$col-delete: rgb(216, 63, 63);
-
-$col-ruleset-enabled: rgb(32, 184, 52);
-$col-ruleset-disabled: rgb(209, 30, 30);
+    // Whether or not the ruleset is enabled
+    //
+    enabled: boolean;
+}

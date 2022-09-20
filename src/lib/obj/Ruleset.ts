@@ -11,36 +11,12 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-// User details about a ruleset
-//
-export interface RulesetDetails {
-    // Ruleset name
-    //
-    name: string;
-
-    // URL to deploy the ruleset on
-    //
-    url: string;
-
-    // Ruleset source
-    //
-    src: string;
-
-    // Whether or not the ruleset is enabled
-    //
-    enabled: boolean;
-}
-
-// A key-value pair for a ruleset
-// Data is stored as stringified JSON.
-//
-export interface RulesetPair {
-    [key: string]: string;
-}
+import RulesetDetails from "./RulesetDetails";
+import RulesetPair from "./RulesetPair";
 
 // Class to represent a ruleset
 //
-export class Ruleset {
+export default class Ruleset {
     // HTML element representing this ruleset
     //
     private _element!: HTMLElement;
@@ -266,57 +242,5 @@ export class Ruleset {
         }, (error: string) => {
             console.error(`Failed to save ruleset!\nSee more information below...\n\n${error}`);
         });
-    }
-}
-
-// Class to represent a list of rulesets
-// Only one of these should actually exist!
-//
-export class RulesetList {
-    // Add a ruleset to the list and save it to extension storage
-    //
-    public addRuleset(details: RulesetDetails) {
-        let rs = new Ruleset(details);
-
-        // save this new ruleset in extension storage
-        rs.save();
-    }
-
-    // Update the specified u-list DOM element to show rulesets in extension storage
-    //
-    public visualise(ul: HTMLUListElement): void {
-        this.retrieve().then((rulesetList) => {
-            // remove existing children
-            ul.replaceChildren();
-
-            // add each ruleset's DOM element to the u-list
-            rulesetList.forEach((rs): void => {
-                ul.appendChild(rs.element);
-            });
-        }, (error: string) => {
-            console.error(`Failed to display rulesets!\nSee more information below...\n\n${error}`);
-        });
-    }
-
-    // Return the list of rulesets stored in extension storage.
-    //
-    public async retrieve(): Promise<Ruleset[]> {
-        let rulesets: Ruleset[] = [];
-
-        // get rulesets from extension storage
-        await browser.storage.sync.get().then((rsList) => {
-            // iterate through rulesets in extension storage
-            for (const [key, value] of Object.entries(rsList)) {
-                // add each ruleset to the array of rulesets
-                rulesets.push(new Ruleset(key));
-            }
-        }, (error: string) => {
-            // promise was rejected
-            console.error(`Failed to retrieve rulesets!\nSee more information below...\n\n${error}`);
-            return error;
-        });
-
-        // return the array of rulesets retrieved from extension storage.
-        return rulesets;
     }
 }

@@ -11,11 +11,9 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-// get version from the package.json file
-const ExtensionVersion = require("../package.json").version;
-
-// This will be run on all pages
-document.querySelectorAll<HTMLSpanElement>(".version").forEach((element): void => {
-    // update all spans with class 'version' to show the package version
-    element.innerHTML = `v${ExtensionVersion}`;
-});
+// A key-value pair for a ruleset
+// Data is stored as stringified JSON.
+//
+export default interface RulesetPair {
+    [key: string]: string;
+}
