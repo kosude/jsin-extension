@@ -16,13 +16,14 @@ import * as runner from "../lib/runner";
 import RulesetList from "../lib/obj/RulesetList";
 
 runner.runOnPage("dashboard", (): void => {
-    let rulesetList = new RulesetList;
-    let rulesetListElement = document.querySelector<HTMLUListElement>(".rulesets > ul")!;
-
-    // initially sync and visualise the ruleset list on page load
-    rulesetList.visualise(rulesetListElement);
+    var rulesetList: RulesetList;
 
     document.addEventListener("DOMContentLoaded", (): void => {
+        rulesetList = new RulesetList(document.querySelector<HTMLUListElement>(".rulesets > ul")!);
+
+        // wait until the ruleset list is ready and then visualise it
+        rulesetList.pull().then((): void => { rulesetList.visualise(); })
+
         // add functionality to the 'add ruleset' buttons
         document.querySelectorAll(".create-ruleset-button").forEach((button): void => {
             button.addEventListener("click", (): void => {
@@ -33,8 +34,13 @@ runner.runOnPage("dashboard", (): void => {
                     src: "// Write script here",
                     enabled: true
                 });
-                rulesetList.visualise(rulesetListElement);
+                rulesetList.visualise();
             });
         });
+    });
+
+    // save all rulesets before the page is unloaded
+    window.addEventListener("beforeunload", (): void => {
+        rulesetList.saveAll();
     });
 });

@@ -179,27 +179,37 @@ export default class Ruleset {
         this._element = this.populateHTMLElement(this._element);
 
         if (typeof details === "string") {
+            if (details === "undefined") {
+                console.warn(`Key of "undefined" was passed to a new Ruleset object, which is invalid.`)
+                return;
+            }
+
             browser.storage.sync.get(details).then((rsStr) => {
-                this._key = details;
+                try {
+                    this._key = details;
 
-                // get basic JSON object from key. this represents the ruleset:
-                let rsObj = JSON.parse(rsStr[details]);
+                    // get basic JSON object from key. this represents the ruleset:
+                    let rsObj = JSON.parse(rsStr[details]);
 
-                // copy data from the JSON object into this object
-                this._details = {
-                    name: rsObj._details.name,
-                    url: rsObj._details.url,
-                    src: rsObj._details.src,
-                    enabled: rsObj._details.enabled
-                };
+                    // copy data from the JSON object into this object
+                    this._details = {
+                        name: rsObj._details.name,
+                        url: rsObj._details.url,
+                        src: rsObj._details.src,
+                        enabled: rsObj._details.enabled
+                    };
 
-                // initial run of ruleset details setters to initialise their respective HTML elements
-                // we must run this here so that it is run AFTER getting the data from storage.
-                // otherwise the data will not display.
-                this.name = this.name;
-                this.url = this.url;
-                this.src = this.src;
-                this.enabled = this.enabled;
+                    // initial run of ruleset details setters to initialise their respective HTML elements
+                    // we must run this here so that it is run AFTER getting the data from storage.
+                    // otherwise the data will not display.
+                    this.name = this.name;
+                    this.url = this.url;
+                    this.src = this.src;
+                    this.enabled = this.enabled;
+                } catch (e) {
+                    console.error(`Failed to pull a ruleset from extension storage into local object! (key = ${this._key})`)
+                    return;
+                }
             }, (error: string) => {
                 console.error(`Failed to create local ruleset object!\nSee more information below...\n\n${error}`);
             });

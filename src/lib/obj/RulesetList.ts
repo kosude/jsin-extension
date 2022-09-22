@@ -18,50 +18,75 @@ import Ruleset from "./Ruleset";
 // Only one of these should actually exist!
 //
 export default class RulesetList {
-    // Add a ruleset to the list and save it to extension storage
+    // List of local rulesets
+    //
+    private _rulesets: Ruleset[];
+    public get rulesets() { return this._rulesets; }
+
+    // U-list element to represent ruleset list
+    //
+    private _ul: HTMLUListElement;
+    public get ul() { return this._ul; }
+
+    // Initialise ruleset list class and visualise it
+    //
+    public constructor(ul: HTMLUListElement) {
+        // initialise members
+        this._rulesets = [];
+        this._ul = ul;
+    }
+
+    // Add a local ruleset to the list
     //
     public addRuleset(details: RulesetDetails) {
-        let rs = new Ruleset(details);
-
-        // save this new ruleset in extension storage
-        rs.save();
+        this._rulesets.push(new Ruleset(details));
     }
 
     // Update the specified u-list DOM element to show rulesets in extension storage
     //
-    public visualise(ul: HTMLUListElement): void {
-        this.retrieve().then((rulesetList) => {
-            // remove existing children
-            ul.replaceChildren();
+    public visualise(): void {
+        // remove existing children
+        this._ul.replaceChildren();
 
-            // add each ruleset's DOM element to the u-list
-            rulesetList.forEach((rs): void => {
-                ul.appendChild(rs.element);
-            });
-        }, (error: string) => {
-            console.error(`Failed to display rulesets!\nSee more information below...\n\n${error}`);
+        // add each ruleset's DOM element to the u-list
+        this._rulesets.forEach((ruleset): void => {
+            this._ul.appendChild(ruleset.element);
         });
     }
 
-    // Return the list of rulesets stored in extension storage.
+    // Copy all remote rulesets into the local list.
     //
-    public async retrieve(): Promise<Ruleset[]> {
-        let rulesets: Ruleset[] = [];
-
+    public async pull(): Promise<void> {
         // get rulesets from extension storage
         await browser.storage.sync.get().then((rsList) => {
             // iterate through rulesets in extension storage
             for (const [key, value] of Object.entries(rsList)) {
+                // check if key is undefined
+                if (key === "undefined") {
+                    console.warn(`Encountered key of "undefined". jSin will attempt to remove this object.
+If this keeps happening, you might have found a bug. Please report it at https://github.com/kosude/jsin-extension-2/issues!`);
+
+                    // attempt to remove the problematic key
+                    browser.storage.sync.remove(key);
+
+                    continue;
+                }
+
                 // add each ruleset to the array of rulesets
-                rulesets.push(new Ruleset(key));
+                this._rulesets.push(new Ruleset(key));
             }
         }, (error: string) => {
             // promise was rejected
             console.error(`Failed to retrieve rulesets!\nSee more information below...\n\n${error}`);
             return error;
         });
-
-        // return the array of rulesets retrieved from extension storage.
-        return rulesets;
     }
+
+    // Push all local rulesets to remote (extension storage)
+    //
+    public saveAll(): void {
+        this._rulesets.forEach((ruleset): void => {
+            ruleset.save();
+        });
+    };
 }
