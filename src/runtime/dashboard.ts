@@ -13,7 +13,6 @@
 
 import * as runner from "../lib/runner";
 
-import Dashboard from "../lib/obj/Dashboard";
 import RulesetList from "../lib/obj/RulesetList";
 
 runner.runOnPage("dashboard", (): void => {
@@ -22,9 +21,6 @@ runner.runOnPage("dashboard", (): void => {
 
     // initially sync and visualise the ruleset list on page load
     rulesetList.visualise(rulesetListElement);
-
-    // Dashboard state instance
-    var dashboardState = new Dashboard(document.querySelector(".rulesets > ul")!);
 
     document.addEventListener("DOMContentLoaded", (): void => {
         // add functionality to the 'add ruleset' buttons

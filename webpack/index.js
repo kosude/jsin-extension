@@ -1,4 +1,3 @@
-import "../src/lib/obj/Dashboard.ts";
 import "../src/lib/obj/Ruleset.ts";
 import "../src/lib/obj/RulesetDetails.ts";
 import "../src/lib/obj/RulesetList.ts";
