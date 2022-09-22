@@ -11,6 +11,7 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
+import { deleteRuleset } from "../prompt";
 import RulesetDetails from "./RulesetDetails";
 import RulesetPair from "./RulesetPair";
 
@@ -114,7 +115,7 @@ export default class Ruleset {
         delBtn.title = "Delete this ruleset";
         delBtn.innerHTML = "delete";
         delBtn.addEventListener("click", (): void => {
-            // NOT_IMPLEMENTED: call the delete-ruleset prompt
+            this.promptDelete();
         });
 
         // status (glowing icon) button
@@ -252,5 +253,11 @@ export default class Ruleset {
         }, (error: string) => {
             console.error(`Failed to save ruleset!\nSee more information below...\n\n${error}`);
         });
+    }
+
+    // Prompt the user to delete the ruleset
+    //
+    public promptDelete(): void {
+        deleteRuleset(this);
     }
 }

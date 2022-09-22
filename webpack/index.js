@@ -3,6 +3,7 @@ import "../src/lib/obj/RulesetDetails.ts";
 import "../src/lib/obj/RulesetList.ts";
 import "../src/lib/obj/RulesetPair.ts";
 
+import "../src/lib/prompt.ts";
 import "../src/lib/runner.ts";
 
 import "../src/runtime/dashboard.ts";

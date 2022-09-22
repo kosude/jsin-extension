@@ -1,0 +1,166 @@
+// -----------------------------------------------------------------------------
+// jSin: Your average JavaScript injector.
+// Copyright (c) 2022 Jack Bennett
+// -----------------------------------------------------------------------------
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY  KIND,  EXPRESS  OR
+// IMPLIED, INCLUDING BUT NOT LIMITED  TO  THE  WARRANTIES  OF  MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT  SHALL  THE
+// AUTHORS OR COPYRIGHT HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR  OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// -----------------------------------------------------------------------------
+
+@import "./vars.scss";
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;
+    }
+}
+
+@keyframes zoomin {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    } to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomout {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    } to {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+.modal {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    justify-content: center;
+    align-items: center;
+
+    display: none;
+
+    animation: fadein 0.1s ease-in-out;
+    animation-fill-mode: both;
+
+    &.closing {
+        animation: fadeout 0.1s ease-in-out;
+        animation-fill-mode: both;
+
+        .modal-content {
+            animation: zoomout 0.1s ease-in-out;
+            animation-fill-mode: both;
+        }
+    }
+
+    .modal-content {
+        background-color: $col-bg-dark;
+        border: 2px solid $col-title;
+
+        border-radius: 10px;
+
+        font-family: $font-heading;
+        color: white;
+
+        text-align: center;
+
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        position: relative;
+
+        animation: zoomin 0.1s ease-in-out;
+        animation-fill-mode: both;
+
+        .modal-prompt {
+            position: relative;
+
+            h2 {
+                font-size: 26pt;
+                color: $col-title;
+            }
+
+            p {
+                font-size: 16pt;
+                font-style: italic;
+            }
+        }
+
+        .modal-choices {
+            display: flex;
+            justify-content: space-evenly;
+
+            button {
+                padding: 10px 80px;
+                border-radius: 8px;
+
+                background-color: $col-bg-light;
+
+                color: $col-title;
+                font-family: $font-heading;
+                border: none;
+                font-size: 14pt;
+
+                transition: all 0.15s ease-in-out;
+
+                float: left;
+
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $col-title;
+                    color: $col-bg-light;
+                    transform: scale(1.1);
+                }
+
+                &.continuebtn {
+                    font-weight: bold;
+                }
+
+                &.cancelbtn {
+                    &:hover {
+                        background-color: $col-text-subtle;
+                    }
+                }
+            }
+        }
+    }
+
+    &#delete-prompt {
+        .modal-content {
+            width: 650px;
+            height: 200px;
+
+            user-select: none;
+        }
+    }
+}

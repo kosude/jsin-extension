@@ -11,36 +11,10 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-@import "./vars.scss";
+import Ruleset from "./obj/Ruleset";
 
-* {
-    margin: 0;
-}
-
-body {
-    overflow: hidden;
-	background-color: $col-bg-light;
-
-    // configuration for material symbols
-    .material-symbols-outlined {
-        font-variation-settings:
-            'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 48;
-    }
-
-    a {
-        color: $col-title; // yellow
-        cursor: pointer;
-    }
-
-    // references to the extension's version number
-    .version {
-        color: $col-vnum;
-    }
-
-    .no-action {
-        pointer-events: none;
-    }
+// Open the 'delete ruleset' prompt
+//
+export function deleteRuleset(ruleset: Ruleset) {
+    // NOT_IMPLEMENTED
 }
