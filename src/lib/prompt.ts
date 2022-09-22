@@ -13,8 +13,53 @@
 
 import Ruleset from "./obj/Ruleset";
 
+// Show a prompt or modal
+//
+export function showModal(modal: HTMLDivElement): void {
+    modal.classList.remove("closing");
+    modal.classList.add("show");
+}
+
+// Hide a prompt or modal
+//
+export function hideModal(modal: HTMLDivElement): void {
+    modal.classList.add("closing");
+
+    // wait for the fade-out animation (initiated above) to complete
+    setTimeout(() => {
+        // hide modal
+        modal.classList.remove("show");
+    }, 100);
+}
+
 // Open the 'delete ruleset' prompt
 //
-export function deleteRuleset(ruleset: Ruleset) {
-    // NOT_IMPLEMENTED
+export function deleteRuleset(ruleset: Ruleset): void {
+    // get and show modal
+    let modal = document.querySelector<HTMLDivElement>("#delete-prompt")!;
+    showModal(modal);
+
+    // get modal buttons
+    let cancelBtn = document.querySelector<HTMLButtonElement>(".cancelbtn")!;
+    let continueBtn = document.querySelector<HTMLButtonElement>(".continuebtn")!;
+
+    // remove old event listeners from buttons
+    cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+    continueBtn.replaceWith(continueBtn.cloneNode(true));
+
+    // we need to re-get the elements as otherwise adding new event listeners doesn't work for some reason
+    cancelBtn = document.querySelector<HTMLButtonElement>(".cancelbtn")!;
+    continueBtn = document.querySelector<HTMLButtonElement>(".continuebtn")!;
+
+    // add functionality to the cancel button
+    cancelBtn.addEventListener("click", (): void => {
+        hideModal(modal);
+    });
+
+    // add functionality to the cancel button
+    continueBtn.addEventListener("click", (): void => {
+        hideModal(modal);
+
+        ruleset.delete();
+    });
 }

@@ -41,6 +41,7 @@ runner.runOnPage("dashboard", (): void => {
 
     // save all rulesets before the page is unloaded
     window.addEventListener("beforeunload", (): void => {
-        rulesetList.saveAll();
+        // FIXME: saving has been disabled for now (see issue #3 on GH)
+        // rulesetList.saveAll();
     });
 });

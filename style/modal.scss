@@ -163,4 +163,8 @@
             user-select: none;
         }
     }
+
+    &.show {
+        display: flex;
+    }
 }
