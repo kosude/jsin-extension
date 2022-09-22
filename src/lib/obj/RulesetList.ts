@@ -36,10 +36,33 @@ export default class RulesetList {
         this._ul = ul;
     }
 
-    // Add a local ruleset to the list
+    // Add a synced ruleset to the list
     //
     public addRuleset(details: RulesetDetails) {
-        this._rulesets.push(new Ruleset(details));
+        let rs = new Ruleset(details, this);
+        rs.save();
+
+        this._rulesets.push(rs);
+    }
+
+    // Remove a synced ruleset from the list
+    //
+    public removeRuleset(ruleset: Ruleset) {
+        let index = this._rulesets.indexOf(ruleset);
+
+        if (index < 0) {
+            console.warn("Attempted to remove ruleset from a list that doesn't contain it");
+            return;
+        }
+
+        // delete from extension storage
+        ruleset.delete();
+
+        // remove HTML element
+        ruleset.element.remove();
+
+        // remove from local array
+        this._rulesets.splice(index, 1);
     }
 
     // Update the specified u-list DOM element to show rulesets in extension storage
@@ -73,7 +96,7 @@ If this keeps happening, you might have found a bug. Please report it at https:/
                 }
 
                 // add each ruleset to the array of rulesets
-                this._rulesets.push(new Ruleset(key));
+                this._rulesets.push(new Ruleset(key, this));
             }
         }, (error: string) => {
             // promise was rejected
@@ -81,12 +104,4 @@ If this keeps happening, you might have found a bug. Please report it at https:/
             return error;
         });
     }
-
-    // Push all local rulesets to remote (extension storage)
-    //
-    public saveAll(): void {
-        this._rulesets.forEach((ruleset): void => {
-            ruleset.save();
-        });
-    };
 }

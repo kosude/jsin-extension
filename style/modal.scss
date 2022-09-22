@@ -123,7 +123,7 @@
                 padding: 10px 80px;
                 border-radius: 8px;
 
-                background-color: $col-bg-light;
+                background-color: $col-bg-lightest;
 
                 color: $col-title;
                 font-family: $font-heading;
@@ -147,6 +147,7 @@
                 }
 
                 &.cancelbtn {
+                    color: $col-text-light;
                     &:hover {
                         background-color: $col-text-subtle;
                     }
@@ -161,6 +162,19 @@
             height: 200px;
 
             user-select: none;
+
+            .continuebtn {
+                color: $col-delete;
+
+                &:hover {
+                    color: $col-bg-light;
+                    background-color: $col-delete;
+                }
+            }
         }
+    }
+
+    &.show {
+        display: flex;
     }
 }

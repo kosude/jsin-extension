@@ -11,8 +11,9 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-import { deleteRuleset } from "../prompt";
+import { deleteRulesetPrompt } from "../prompt";
 import RulesetDetails from "./RulesetDetails";
+import RulesetList from "./RulesetList";
 import RulesetPair from "./RulesetPair";
 
 // Class to represent a ruleset
@@ -93,7 +94,7 @@ export default class Ruleset {
     // Initialise a HTML element for the ruleset without any actual details (name, url, etc).
     // To be invoekd in the constructor.
     //
-    private initSkeletonHTMLElement(): HTMLElement {
+    private initSkeletonHTMLElement(parentList: RulesetList): HTMLElement {
         // create element as list item
         let element = document.createElement("li");
         element.classList.add("ruleset");
@@ -115,7 +116,7 @@ export default class Ruleset {
         delBtn.title = "Delete this ruleset";
         delBtn.innerHTML = "delete";
         delBtn.addEventListener("click", (): void => {
-            this.promptDelete();
+            this.promptDelete(parentList);
         });
 
         // status (glowing icon) button
@@ -174,9 +175,9 @@ export default class Ruleset {
     // Create a ruleset
     // If `details` is a string, it is treated as a key of a ruleset that already exists in extension storage.
     //
-    public constructor(details: RulesetDetails | string) {
+    public constructor(details: RulesetDetails | string, parentList: RulesetList) {
         // initialise the HTML element for the ruleset
-        this._element = this.initSkeletonHTMLElement();
+        this._element = this.initSkeletonHTMLElement(parentList);
         this._element = this.populateHTMLElement(this._element);
 
         if (typeof details === "string") {
@@ -257,7 +258,7 @@ export default class Ruleset {
 
     // Prompt the user to delete the ruleset
     //
-    public promptDelete(): void {
-        deleteRuleset(this);
+    public promptDelete(parentList: RulesetList): void {
+        deleteRulesetPrompt(this, parentList);
     }
 }
