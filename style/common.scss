@@ -17,6 +17,10 @@
     margin: 0;
 }
 
+ul, li {
+    list-style: none;
+}
+
 ::selection {
     // col-title but translucent
     background-color: rgba(255, 199, 17, 0.377);

@@ -15,6 +15,7 @@ import RulesetDetails from "./RulesetDetails";
 import Ruleset from "./Ruleset";
 import { DashboardLayout, setDashboardLayout } from "../layout";
 import CodeFlask from "codeflask";
+import { editRulesetPrompt } from "../prompt";
 
 // Class to represent a list of rulesets
 // Only one of these should actually exist!
@@ -48,17 +49,20 @@ export default class RulesetList {
     //
     public addRuleset(details: RulesetDetails) {
         let rs = new Ruleset(details, this, this._flask);
-        rs.save();
 
-        this._rulesets.push(rs);
+        editRulesetPrompt(rs, this, this._flask, (saved: boolean): void => {
+            if (saved) {
+                this._rulesets.push(rs);
 
-        // append ruleset element to the list
-        this._ul.appendChild(rs.element);
+                // append ruleset element to the list
+                this._ul.appendChild(rs.element);
 
-        // if this was the first ruleset to be created, then set dashboard layout accordingly
-        if (this._rulesets.length === 1) {
-            setDashboardLayout(DashboardLayout.SomeRulesets);
-        }
+                // if this was the first ruleset to be created, then set dashboard layout accordingly
+                if (this._rulesets.length === 1) {
+                    setDashboardLayout(DashboardLayout.SomeRulesets);
+                }
+            }
+        });
     }
 
     // Remove a synced ruleset from the list

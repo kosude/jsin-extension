@@ -37,9 +37,13 @@ export function hideModal(modal: HTMLDivElement): void {
 
 // Open the 'edit ruleset' prompt
 //
-export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, flask: CodeFlask): void {
+export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, flask: CodeFlask, onClose: (saved: boolean) => void = () => {}): void {
     // get edit prompt
     let modal = document.querySelector<HTMLDivElement>("#edit-prompt")!;
+
+    // buffer boolean to hold the ruleset enabled/disabled status, as set in this dialogue.
+    // this is done so that the background indicator is not changed if the user doesn't save the changes to the status.
+    let statusBuffer = ruleset.enabled;
 
     // function to switch tab
     // 'tab' is the name of the tab to switch to
@@ -113,7 +117,7 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
     generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.value = ruleset.name;
 
     // get enabled status
-    if (ruleset.enabled) {
+    if (statusBuffer) {
         generalTab.querySelector("#status")!.classList.add("enabled");
         generalTab.querySelector("#status")!.classList.remove("disabled");
         generalTab.querySelector("#status div")!.innerHTML = "ENABLED";
@@ -130,10 +134,10 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
     generalTab.querySelector("#status div")!.addEventListener("click", () => {
         // this immediately updates the ruleset rather than being put into a buffer
         // we just directly modify the ruleset to achieve this
-        ruleset.enabled = !ruleset.enabled;
+        statusBuffer = !statusBuffer;
 
         // re-run this code so that the button's appearance is updated.
-        if (ruleset.enabled) {
+        if (statusBuffer) {
             generalTab.querySelector("#status")!.classList.add("enabled");
             generalTab.querySelector("#status")!.classList.remove("disabled");
             generalTab.querySelector("#status div")!.innerHTML = "ENABLED";
@@ -179,19 +183,20 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
         setTimeout(() => {
             modal.style.display = "none";
         }, 100);
+
+        onClose(false);
     });
 
     // add functionality to the save button
     modal.querySelector(".savebtn")!.replaceWith(modal.querySelector(".savebtn")!.cloneNode(true));
     modal.querySelector(".savebtn")!.addEventListener("click", () => {
-        // if there were any changes that weren't explicitly saved with a button (like name and URL), save them to the ruleset now
+        // save changes to the ruleset now
         ruleset.name = generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.value;
         ruleset.url = urlTab.querySelector<HTMLTextAreaElement>("#entry textarea")!.value;
-
-        // save the source code
         ruleset.src = flask.getCode();
+        ruleset.enabled = statusBuffer;
 
-        // sync these changes
+        // sync these changes to extension storage
         ruleset.save();
 
         // update the ruleset list to reflect these changes
@@ -203,6 +208,8 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
         setTimeout(() => {
             modal.style.display = "none";
         }, 100);
+
+        onClose(true);
     });
 }
 

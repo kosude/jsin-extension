@@ -43,7 +43,6 @@ runner.runOnPage("dashboard", (): void => {
         // add functionality to the 'add ruleset' buttons
         document.querySelectorAll(".create-ruleset-button").forEach((button): void => {
             button.addEventListener("click", (): void => {
-                // TODO: bring up edit prompt first
                 rulesetList.addRuleset({
                     name: "New ruleset",
                     url: "*google.com*",
