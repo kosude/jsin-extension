@@ -14,6 +14,8 @@
 import * as runner from "../lib/runner";
 
 import RulesetList from "../lib/obj/RulesetList";
+import { DashboardLayout, randomiseDashboardEmoticon, setDashboardLayout } from "../lib/layout";
+
 
 runner.runOnPage("dashboard", (): void => {
     var rulesetList: RulesetList;
@@ -21,8 +23,18 @@ runner.runOnPage("dashboard", (): void => {
     document.addEventListener("DOMContentLoaded", (): void => {
         rulesetList = new RulesetList(document.querySelector<HTMLUListElement>(".rulesets > ul")!);
 
-        // wait until the ruleset list is ready and then visualise it
-        rulesetList.pull().then((): void => { rulesetList.visualise(); })
+        // wait until the ruleset list is ready
+        rulesetList.pull().then((): void => {
+            // display it
+            rulesetList.visualise();
+
+            // set the dashboard layout according to the amount of rulesets that exist
+            if (rulesetList.rulesets.length <= 0) {
+                setDashboardLayout(DashboardLayout.NoRulesets);
+            } else {
+                setDashboardLayout(DashboardLayout.SomeRulesets);
+            }
+        });
 
         // add functionality to the 'add ruleset' buttons
         document.querySelectorAll(".create-ruleset-button").forEach((button): void => {
@@ -37,11 +49,10 @@ runner.runOnPage("dashboard", (): void => {
                 rulesetList.visualise();
             });
         });
-    });
 
-    // save all rulesets before the page is unloaded
-    window.addEventListener("beforeunload", (): void => {
-        // FIXME: saving has been disabled for now (see issue #3 on GH)
-        // rulesetList.saveAll();
+        // add functionality to the corner logo
+        document.querySelector(".corner-logo")!.addEventListener("click", (): void => {
+            randomiseDashboardEmoticon();
+        });
     });
 });

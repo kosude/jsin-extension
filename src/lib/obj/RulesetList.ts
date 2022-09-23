@@ -13,6 +13,7 @@
 
 import RulesetDetails from "./RulesetDetails";
 import Ruleset from "./Ruleset";
+import { DashboardLayout, setDashboardLayout } from "../layout";
 
 // Class to represent a list of rulesets
 // Only one of these should actually exist!
@@ -43,6 +44,11 @@ export default class RulesetList {
         rs.save();
 
         this._rulesets.push(rs);
+
+        // if this was the first ruleset to be created, then set dashboard layout accordingly
+        if (this._rulesets.length === 1) {
+            setDashboardLayout(DashboardLayout.SomeRulesets);
+        }
     }
 
     // Remove a synced ruleset from the list
@@ -63,14 +69,16 @@ export default class RulesetList {
 
         // remove from local array
         this._rulesets.splice(index, 1);
+
+        // if this was the only remaining ruleset, then set layout accordingly
+        if (this._rulesets.length <= 0) {
+            setDashboardLayout(DashboardLayout.NoRulesets);
+        }
     }
 
     // Update the specified u-list DOM element to show rulesets in extension storage
     //
     public visualise(): void {
-        // remove existing children
-        this._ul.replaceChildren();
-
         // add each ruleset's DOM element to the u-list
         this._rulesets.forEach((ruleset): void => {
             this._ul.appendChild(ruleset.element);
