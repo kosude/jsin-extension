@@ -46,7 +46,6 @@ runner.runOnPage("dashboard", (): void => {
                     src: "// Write script here",
                     enabled: true
                 });
-                rulesetList.visualise();
             });
         });
 

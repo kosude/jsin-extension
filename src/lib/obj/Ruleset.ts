@@ -124,6 +124,7 @@ export default class Ruleset {
         statusIcon.id = "status";
         statusIcon.addEventListener("click", (): void => {
             this.enabled = !this.enabled; // this setter will handle editing the DOM to reflect the enabled state
+            this.save();
         });
 
         // append these tools into an unordered list

@@ -45,6 +45,9 @@ export default class RulesetList {
 
         this._rulesets.push(rs);
 
+        // append ruleset element to the list
+        this._ul.appendChild(rs.element);
+
         // if this was the first ruleset to be created, then set dashboard layout accordingly
         if (this._rulesets.length === 1) {
             setDashboardLayout(DashboardLayout.SomeRulesets);
