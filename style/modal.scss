@@ -156,6 +156,279 @@
         }
     }
 
+    &#edit-prompt {
+        .modal-content {
+            width: 875px;
+            height: 400px;
+
+            /* circular curve */
+            transition: all 0.2s cubic-bezier(.08,.82,.17,1);
+
+            &.general {
+                height: 198px;
+            }
+
+            &.source {
+                height: 700px;
+            }
+
+            &.url {
+                height: 250px;
+            }
+
+            .modal-tabs {
+                position: absolute;
+                width: 60px;
+                height: 100%;
+
+                background-color: $col-bg-darkest;
+
+                user-select: none;
+
+                > button {
+                    background: none;
+                    color: white;
+
+                    width: 100%;
+                    height: 40px;
+
+                    border: none;
+                    border-bottom: 2px solid $col-bg-light;
+
+                    cursor: pointer;
+
+                    transition: all 0.15s ease-in-out;
+
+                    &:hover, &.current {
+                        background-color: $col-bg-dark;
+                    }
+
+                    &.current {
+                        color: $col-title;
+                    }
+                }
+
+                .savebtn {
+                    color: $col-save !important;
+
+                    position: absolute;
+                    bottom: 40px;
+                    left: 0;
+
+                    border-bottom: none !important;
+                    border-top: 2px solid $col-bg-light !important;
+
+                    &:hover {
+                        background-color: $col-save !important;
+                        border-top: 2px solid $col-save !important;
+                        color: white !important;
+                    }
+                }
+
+                .quitbtn {
+                    color: $col-delete !important;
+
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+
+                    border-bottom: none !important;
+                    border-top: 2px solid $col-bg-light !important;
+
+                    &:hover {
+                        background-color: $col-delete !important;
+                        border-top: 2px solid $col-delete !important;
+                        color: white !important;
+                    }
+                }
+            }
+
+            .edit-tab {
+                position: absolute;
+                top: 0;
+                height: 100%;
+
+                // tab sidebar is 60px wide, so account for that to not block it
+                width: 815px;
+                left: 60px;
+
+                overflow: auto;
+
+                justify-content: center;
+                align-items: center;
+                display: flex;
+
+                ul {
+                    padding: 0;
+
+                    align-items: center;
+                    display: flex;
+                    flex-direction: column;
+
+                    li {
+                        list-style: none;
+                        font-size: 20pt;
+
+                        width: 100%;
+                    }
+                }
+
+                &#tab-general {
+                    #name {
+                        textarea {
+                            resize: none;
+                            overflow: hidden;
+                            width: 32ch;
+
+                            background: none;
+                            border: none;
+                            border-radius: 10px;
+
+                            outline: none;
+
+                            color: white;
+                            font-family: "Lato";
+                            font-weight: bold;
+                            text-align: center;
+                            font-size: 24pt;
+
+                            background-color: $col-textarea;
+
+                            &:hover, &:focus {
+                                color: $col-title;
+                            }
+                        }
+                    }
+
+                    #namecharcount {
+                        font-size: 13pt;
+                        font-style: italic;
+                        color: $col-text-subtle;
+
+                        height: 25px;
+
+                        /* just slightly smaller than the textarea below it */
+                        width: 57ch;
+                        text-align: right;
+
+                        user-select: none;
+                    }
+
+                    #status {
+                        display: flex;
+                        justify-content: center;
+
+                        user-select: none;
+
+                        div {
+                            width: 200px;
+                            height: 40px;
+
+                            margin-left: 4px;
+
+                            border-radius: 5px;
+
+                            font-weight: bold;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 18pt;
+
+                            cursor: pointer;
+                        }
+
+                        &.enabled {
+                            div {
+                                background-color: $col-ruleset-enabled;
+                                box-shadow: 0px 0px 10px 1px $col-ruleset-enabled;
+                            }
+                        }
+
+                        &.disabled {
+                            div {
+                                background-color: $col-ruleset-disabled;
+                                box-shadow: 0px 0px 10px 1px $col-ruleset-disabled;
+                            }
+                        }
+                    }
+
+                    #keydisplay {
+                        font-size: 12pt;
+                        font-style: italic;
+                        color: $col-text-subtle;
+
+                        margin-top: 20px;
+                    }
+                }
+
+                &#tab-source {
+                    ul, li, #code-editor {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                &#tab-url {
+                    #urlcharcount {
+                        font-size: 13pt;
+                        font-style: italic;
+                        color: $col-text-subtle;
+
+                        height: 25px;
+
+                        // just slightly smaller than the textarea below it
+                        width: 70ch;
+                        text-align: right;
+
+                        user-select: none;
+                    }
+
+                    #entry {
+                        textarea {
+                            resize: none;
+                            overflow: hidden;
+                            width: 62ch;
+
+                            background: none;
+                            border: none;
+                            border-radius: 10px;
+
+                            outline: none;
+
+                            color: white;
+                            font-family: $font-source;
+                            font-weight: bold;
+                            text-align: center;
+                            font-size: 14pt;
+
+                            background-color: $col-textarea;
+
+                            &:hover, &:focus {
+                                color: $col-title;
+                            }
+                        }
+                    }
+
+                    #info {
+                        font-size: 13pt;
+                        color: $col-text-subtle;
+
+                        margin-top: 20px;
+
+                        width: 80%;
+                        text-align: right;
+                        word-wrap: normal;
+                        text-align: center;
+
+                        code {
+                            font-size: 12pt;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &#delete-prompt {
         .modal-content {
             width: 650px;

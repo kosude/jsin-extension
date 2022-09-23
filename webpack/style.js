@@ -4,3 +4,4 @@ import "../style/popup.scss";
 import "../style/modal.scss"
 import "../style/dashboard.scss";
 import "../style/rulesets.scss";
+import "../style/codeflask.scss";

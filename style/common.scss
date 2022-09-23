@@ -17,6 +17,26 @@
     margin: 0;
 }
 
+::selection {
+    // col-title but translucent
+    background-color: rgba(255, 199, 17, 0.377);
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    opacity: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $col-text-subtle;
+    border-radius: 50px;
+}
+
 body {
     overflow: hidden;
 	background-color: $col-bg-light;

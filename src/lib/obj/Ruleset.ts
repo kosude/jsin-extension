@@ -66,7 +66,7 @@ export default class Ruleset {
     // Get/set the 'src' field (in the '_details' object)
     // This updates the ruleset DOM element.
     //
-    public get src() { return this._details.url; }
+    public get src() { return this._details.src; }
     public set src(val: string) {
         this._details.src = val;
     }

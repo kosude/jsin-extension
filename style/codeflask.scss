@@ -1,0 +1,95 @@
+// -----------------------------------------------------------------------------
+// jSin: Your average JavaScript injector.
+// Copyright (c) 2022 Jack Bennett
+// -----------------------------------------------------------------------------
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY  KIND,  EXPRESS  OR
+// IMPLIED, INCLUDING BUT NOT LIMITED  TO  THE  WARRANTIES  OF  MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT  SHALL  THE
+// AUTHORS OR COPYRIGHT HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR  OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// -----------------------------------------------------------------------------
+
+@import "./vars.scss";
+
+#code-editor * {
+    font-family: $font-source, monospace !important;
+
+    // remove gaps between selected lines of text
+    line-height: 1.2;
+}
+
+.codeflask.codeflask--has-line-numbers {
+    &::before {
+        background: $col-bg-light !important;
+
+        z-index: 40 !important;
+    }
+}
+
+.codeflask__textarea {
+    background: $col-bg-dark !important;
+    caret-color: #eee !important;
+
+    // text opacity set to 0 (text is rendered using .codeflask__pre instead)
+    color: rgba(255, 255, 255, 0) !important;
+
+    &::selection {
+        color: rgba(255, 255, 255, 0) !important;
+    }
+}
+
+.codeflask__flatten {
+    font-size: 15px !important;
+}
+
+.codeflask__pre {
+    width: auto !important;
+}
+
+.codeflask__lines {
+    z-index: 50 !important;
+
+    font-size: 15px !important;
+}
+
+// CODEFLASK KEYWORD THEMING
+
+.codeflask {
+    color: rgb(219, 219, 219);
+}
+.codeflask .token.keyword {
+    color: #b872e0;
+}
+.codeflask .token.operator {
+    color: #ff5598;
+}
+.codeflask .token.string {
+    color: #d69865;
+}
+.codeflask .token.comment {
+    color: #575757;
+    font-style: italic;
+}
+.codeflask .token.function {
+    color: #ffe298;
+}
+.codeflask .token.boolean {
+    color: #5b99f5;
+}
+.codeflask .token.number {
+    color: #c8f594;
+}
+.codeflask .token.selector {
+    color: #b872e0;
+}
+.codeflask .token.property {
+    color: #b872e0;
+}
+.codeflask .token.tag {
+    color: #b872e0;
+}
+.codeflask .token.attr-value {
+    color: #b872e0;
+}
