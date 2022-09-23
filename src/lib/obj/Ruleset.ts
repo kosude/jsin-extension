@@ -11,7 +11,8 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
-import { deleteRulesetPrompt } from "../prompt";
+import CodeFlask from "codeflask";
+import { deleteRulesetPrompt, editRulesetPrompt } from "../prompt";
 import RulesetDetails from "./RulesetDetails";
 import RulesetList from "./RulesetList";
 import RulesetPair from "./RulesetPair";
@@ -94,7 +95,7 @@ export default class Ruleset {
     // Initialise a HTML element for the ruleset without any actual details (name, url, etc).
     // To be invoekd in the constructor.
     //
-    private initSkeletonHTMLElement(parentList: RulesetList): HTMLElement {
+    private initSkeletonHTMLElement(parentList: RulesetList, flask: CodeFlask): HTMLElement {
         // create element as list item
         let element = document.createElement("li");
         element.classList.add("ruleset");
@@ -106,7 +107,7 @@ export default class Ruleset {
         editBtn.title = "Edit this ruleset's properties";
         editBtn.innerHTML = "edit";
         editBtn.addEventListener("click", (): void => {
-            // NOT_IMPLEMENTED: call the edit-ruleset prompt
+            this.promptEdit(parentList, flask);
         });
 
         // delete (rubbish bin) button
@@ -176,9 +177,9 @@ export default class Ruleset {
     // Create a ruleset
     // If `details` is a string, it is treated as a key of a ruleset that already exists in extension storage.
     //
-    public constructor(details: RulesetDetails | string, parentList: RulesetList) {
+    public constructor(details: RulesetDetails | string, parentList: RulesetList, flask: CodeFlask) {
         // initialise the HTML element for the ruleset
-        this._element = this.initSkeletonHTMLElement(parentList);
+        this._element = this.initSkeletonHTMLElement(parentList, flask);
         this._element = this.populateHTMLElement(this._element);
 
         if (typeof details === "string") {
@@ -255,6 +256,12 @@ export default class Ruleset {
         }, (error: string) => {
             console.error(`Failed to save ruleset!\nSee more information below...\n\n${error}`);
         });
+    }
+
+    // Prompt the user to edit the ruleset
+    //
+    public promptEdit(parentList: RulesetList, flask: CodeFlask): void {
+        editRulesetPrompt(this, parentList, flask);
     }
 
     // Prompt the user to delete the ruleset

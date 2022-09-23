@@ -12,16 +12,20 @@
 // -----------------------------------------------------------------------------
 
 import * as runner from "../lib/runner";
-
 import RulesetList from "../lib/obj/RulesetList";
 import { DashboardLayout, randomiseDashboardEmoticon, setDashboardLayout } from "../lib/layout";
-
+import CodeFlask from "codeflask";
+import { initFlask } from "../lib/code";
 
 runner.runOnPage("dashboard", (): void => {
     var rulesetList: RulesetList;
+    var codeFlask: CodeFlask;
 
     document.addEventListener("DOMContentLoaded", (): void => {
-        rulesetList = new RulesetList(document.querySelector<HTMLUListElement>(".rulesets > ul")!);
+        // init codeflask
+        codeFlask = initFlask("#code-editor");
+
+        rulesetList = new RulesetList(document.querySelector<HTMLUListElement>(".rulesets > ul")!, codeFlask);
 
         // wait until the ruleset list is ready
         rulesetList.pull().then((): void => {

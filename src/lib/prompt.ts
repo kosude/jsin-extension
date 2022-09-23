@@ -11,8 +11,14 @@
 // SOFTWARE.
 // -----------------------------------------------------------------------------
 
+import CodeFlask from "codeflask";
+import { getFlaskElement, updateFlaskContent } from "./code";
 import Ruleset from "./obj/Ruleset";
 import RulesetList from "./obj/RulesetList";
+
+interface KeyboardEvent {
+    key: string;
+}
 
 // Show a prompt or modal
 //
@@ -31,6 +37,165 @@ export function hideModal(modal: HTMLDivElement): void {
         // hide modal
         modal.classList.remove("show");
     }, 100);
+}
+
+// Open the 'edit ruleset' prompt
+//
+export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, flask: CodeFlask): void {
+    // get edit prompt
+    let modal = document.querySelector<HTMLDivElement>("#edit-prompt")!;
+
+    // function to switch tab
+    // 'tab' is the name of the tab to switch to
+    //
+    function switchTab(tab: string): void {
+        // deselect all other tab buttons
+        Array.from(modal.querySelector<HTMLDivElement>(".modal-tabs")!.children).forEach((t) => {
+            if (tab !== t.classList[0]) {
+                t.classList.remove("current");
+            } else {
+                t.classList.add("current");
+            }
+        });
+
+        // hide all other tabs
+        Array.from(modal.querySelectorAll<HTMLDivElement>(".edit-tab")!).forEach((t) => {
+            if (t !== modal.querySelector(`#tab-${tab.replace("tab", "")}`)) {
+                t.style.display = "none";
+            } else {
+                t.style.removeProperty("display");
+            }
+        });
+
+        // add appropriate class to the modal content element
+        Array.from(modal.querySelector<HTMLDivElement>(".modal-content")!.classList).forEach((c) => {
+            modal.querySelector(".modal-content")!.classList.add(tab.replace("tab", ""));
+            if (c !== tab.replace("tab", "") && c !== "modal-content") {
+                modal.querySelector(".modal-content")!.classList.remove(c);
+            }
+        });
+
+        if (tab === "sourcetab") {
+            // simulate a scroll every time the flask comes into view to eliminate a visual bug
+            // TODO: test me
+            getFlaskElement(flask)!.querySelector("textarea")!.dispatchEvent(new MouseEvent("scroll"));
+        }
+    }
+
+    // make tab buttons work
+    Array.from(modal.querySelector(".modal-tabs")!.children).forEach((tab) => {
+        tab.addEventListener("click", () => {
+            switchTab(tab.classList[0]);
+        });
+    });
+
+    // go to the general tab by default
+    switchTab("generaltab");
+
+    // display modal
+    modal.classList.remove("closing"); // disable closing animation
+    modal.style.display = "flex";
+
+    // initialise content
+
+    //
+    // GENERAL TAB:
+    //
+
+    let generalTab = modal.querySelector("#tab-general")!;
+
+    // set key display appropriately
+    generalTab.querySelector("#keydisplay")!.innerHTML = `ruleset key: ${ruleset.key}`;
+
+    // get name
+    generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.value = ruleset.name;
+
+    // get enabled status
+    if (ruleset.enabled) {
+        generalTab.querySelector("#status")!.classList.add("enabled");
+        generalTab.querySelector("#status")!.classList.remove("disabled");
+        generalTab.querySelector("#status div")!.innerHTML = "ENABLED";
+    } else {
+        generalTab.querySelector("#status")!.classList.add("disabled");
+        generalTab.querySelector("#status")!.classList.remove("enabled");
+        generalTab.querySelector("#status div")!.innerHTML = "DISABLED";
+    }
+
+    // add functionality to the ENABLED/DISABLED button in the general tab
+    // (first removing all old event listeners from the div)
+    generalTab.querySelector("#status div")!.replaceWith(generalTab.querySelector("#status div")!.cloneNode(true));
+
+    generalTab.querySelector("#status div")!.addEventListener("click", () => {
+        // this immediately updates the ruleset rather than being put into a buffer
+        // we just directly modify the ruleset to achieve this
+        ruleset.enabled = !ruleset.enabled;
+
+        // re-run this code so that the button's appearance is updated.
+        if (ruleset.enabled) {
+            generalTab.querySelector("#status")!.classList.add("enabled");
+            generalTab.querySelector("#status")!.classList.remove("disabled");
+            generalTab.querySelector("#status div")!.innerHTML = "ENABLED";
+        } else {
+            generalTab.querySelector("#status")!.classList.add("disabled");
+            generalTab.querySelector("#status")!.classList.remove("enabled");
+            generalTab.querySelector("#status div")!.innerHTML = "DISABLED";
+        }
+    });
+
+    //
+    // SOURCE TAB:
+    //
+
+    // update flask contents
+    updateFlaskContent(flask, ruleset);
+
+    //
+    // URL TAB:
+    //
+
+    let urlTab = modal.querySelector("#tab-url")!;
+
+    // get URL
+    urlTab.querySelector<HTMLTextAreaElement>("#entry textarea")!.value = ruleset.url;
+
+    //
+    // NON-TABS:
+    //
+
+    // add functionality to the cancel button (do nothing and exit)
+    modal.querySelector(".quitbtn")!.replaceWith(modal.querySelector(".quitbtn")!.cloneNode(true));
+    modal.querySelector(".quitbtn")!.addEventListener("click", () => {
+        // close the dialogue
+        modal.classList.add("closing");
+        // wait for the fade-out animation (initiated above) to complete
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 100);
+    });
+
+    // add functionality to the save button
+    modal.querySelector(".savebtn")!.replaceWith(modal.querySelector(".savebtn")!.cloneNode(true));
+    modal.querySelector(".savebtn")!.addEventListener("click", () => {
+        // if there were any changes that weren't explicitly saved with a button (like name and URL), save them to the ruleset now
+        ruleset.name = generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.value;
+        ruleset.url = urlTab.querySelector<HTMLTextAreaElement>("#entry textarea")!.value;
+
+        // save the source code
+        ruleset.src = flask.getCode();
+
+        // sync these changes
+        ruleset.save();
+
+        // update the ruleset list to reflect these changes
+        parentList.visualise();
+
+        // close the dialogue
+        modal.classList.add("closing");
+        // wait for the fade-out animation (initiated above) to complete
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 100);
+    });
 }
 
 // Open the 'delete ruleset' prompt

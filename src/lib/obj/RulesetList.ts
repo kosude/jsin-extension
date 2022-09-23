@@ -14,6 +14,7 @@
 import RulesetDetails from "./RulesetDetails";
 import Ruleset from "./Ruleset";
 import { DashboardLayout, setDashboardLayout } from "../layout";
+import CodeFlask from "codeflask";
 
 // Class to represent a list of rulesets
 // Only one of these should actually exist!
@@ -29,18 +30,24 @@ export default class RulesetList {
     private _ul: HTMLUListElement;
     public get ul() { return this._ul; }
 
+    // CodeFlask element
+    //
+    private _flask: CodeFlask;
+    public get flask() { return this._flask; }
+
     // Initialise ruleset list class and visualise it
     //
-    public constructor(ul: HTMLUListElement) {
+    public constructor(ul: HTMLUListElement, flask: CodeFlask) {
         // initialise members
         this._rulesets = [];
         this._ul = ul;
+        this._flask = flask;
     }
 
     // Add a synced ruleset to the list
     //
     public addRuleset(details: RulesetDetails) {
-        let rs = new Ruleset(details, this);
+        let rs = new Ruleset(details, this, this._flask);
         rs.save();
 
         this._rulesets.push(rs);
@@ -107,7 +114,7 @@ If this keeps happening, you might have found a bug. Please report it at https:/
                 }
 
                 // add each ruleset to the array of rulesets
-                this._rulesets.push(new Ruleset(key, this));
+                this._rulesets.push(new Ruleset(key, this, this._flask));
             }
         }, (error: string) => {
             // promise was rejected

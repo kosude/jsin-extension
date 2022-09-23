@@ -84,6 +84,57 @@
 					</div>
 				</section>
 			</div>
+
+			<div class="modal" id="edit-prompt">
+				<section class="modal-content general">
+					<div class="modal-tabs">
+						<button class="generaltab material-symbols-outlined" title="General settings">edit</button>
+						<button class="sourcetab material-symbols-outlined" title="Edit source">code</button>
+						<button class="urltab material-symbols-outlined" title="Deployment settings">play_arrow</button>
+
+						<button class="savebtn material-symbols-outlined" title="Save">save</button>
+						<button class="quitbtn material-symbols-outlined" title="Cancel">cancel</button>
+					</div>
+
+					<section class="edit-tab" id="tab-general">
+						<ul>
+							<li id="name">
+                                <textarea spellcheck="false" autocomplete="off" autocapitalize="off" maxlength="30" rows="1"></textarea>
+                            </li>
+							<li id="namecharcount">max 30 characters</li>
+
+							<li id="status" class="enabled"><div></div></li>
+
+							<li id="keydisplay"></li>
+						</ul>
+					</section>
+
+					<section class="edit-tab" id="tab-source">
+						<li>
+                            <div id="code-editor"></div>
+                        </li>
+						<ul> <!-- TODO: check if this u-list is necessary -->
+						</ul>
+					</section>
+
+					<section class="edit-tab" id="tab-url">
+						<ul>
+							<li id="urlcharcount">max 60 characters</li>
+							<li id="entry">
+                                <textarea placeholder="URL pattern" spellcheck="false" autocomplete="off" autocapitalize="off" maxlength="60"
+                                    rows="1"></textarea>
+                            </li>
+							<li id="info">
+								You can specify the URL as specific or as broad as you'd like - just make sure to format it as a
+								<a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob pattern</a>. When the extension is running in the
+								background, it will search for the URL by using this pattern.
+								<br><br>
+								Example: &nbsp;<code>*github.com*</code>&nbsp; is any URL that includes 'github.com'.
+							</li>
+						</ul>
+					</section>
+				</section>
+			</div>
         </div>
 
 		<script src="./lib/browser-polyfill.min.js"></script>
