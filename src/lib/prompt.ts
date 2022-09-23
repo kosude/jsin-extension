@@ -16,10 +16,6 @@ import { getFlaskElement, updateFlaskContent } from "./code";
 import Ruleset from "./obj/Ruleset";
 import RulesetList from "./obj/RulesetList";
 
-interface KeyboardEvent {
-    key: string;
-}
-
 // Show a prompt or modal
 //
 export function showModal(modal: HTMLDivElement): void {
@@ -107,6 +103,12 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
     // set key display appropriately
     generalTab.querySelector("#keydisplay")!.innerHTML = `ruleset key: ${ruleset.key}`;
 
+    // disable name newlines
+    generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.addEventListener("input", (e) => {
+        generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.value =
+            generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.value.replace(/\n/g, "");
+    });
+
     // get name
     generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.value = ruleset.name;
 
@@ -154,6 +156,12 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
     //
 
     let urlTab = modal.querySelector("#tab-url")!;
+
+    // disable newlines
+    urlTab.querySelector<HTMLTextAreaElement>("#entry textarea")!.addEventListener("input", (e) => {
+        urlTab.querySelector<HTMLTextAreaElement>("#entry textarea")!.value =
+            urlTab.querySelector<HTMLTextAreaElement>("#entry textarea")!.value.replace(/\n/g, "");
+    });
 
     // get URL
     urlTab.querySelector<HTMLTextAreaElement>("#entry textarea")!.value = ruleset.url;
