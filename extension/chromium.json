@@ -1,5 +1,6 @@
 {
 	"name": "jSin",
+	"version": "$pkgVersion",
 	"description": "Your average JavaScript injector.",
 	"manifest_version": 3,
 
@@ -24,5 +25,15 @@
 		"tabs"
 	],
 
-	"version": "$pkgVersion"
+    "host_permissions": [
+		"http://*/",
+		"https://*/"
+    ],
+
+    "background": {
+        "service_worker": "./background.js",
+        "type": "module"
+    },
+
+    "minimum_chrome_version": "92"
 }

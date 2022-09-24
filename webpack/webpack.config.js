@@ -12,6 +12,7 @@ module.exports = (env) => {
         mode: "production",
         entry: {
             index: path.resolve(__dirname, "./index.js"),
+            background: path.resolve(__dirname, "./background.js")
         },
         output: {
             path: path.join(__dirname, `../dist/${env.browser}`),
