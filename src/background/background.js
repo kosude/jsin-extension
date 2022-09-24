@@ -44,6 +44,8 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                         `\\n\\t(\\"${tab.url}\\" matches selector \\"${ruleset._details.url}\\")");\n${ruleset._details.src}`;
 
                     // execute the script saved for the tab URL
+                    // NOTE: tabs.executeScript is deprecated in Manifest V3 so this will have to be changed at some point. Probably in 2023, when
+                    // Manifest V2 loses support.
                     browser.tabs.executeScript({
                         code: executee
                     }).then(() => {

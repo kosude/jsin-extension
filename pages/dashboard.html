@@ -50,7 +50,7 @@
 
             <footer>
                 <div>
-                    <a id="ghlogo" href="https://github.com/kosude/jsin-extension-2" title="GitHub repository">
+                    <a id="ghlogo" href="https://github.com/kosude/jsin-extension" title="GitHub repository">
                         <img src="./org/github.svg">
                     </a>
 
@@ -61,7 +61,7 @@
                         (c) 2022 Jack Bennett<br>
                         <i>
                             If you notice any ~wacky~ behaviour, <b>try reloading first</b>. If that doesn't work,
-                            <a href="https://github.com/kosude/jsin-extension-2/issues">submit an issue</a>.
+                            <a href="https://github.com/kosude/jsin-extension/issues">submit an issue</a>.
                         </i>
                     </span>
                 </div>
@@ -113,8 +113,6 @@
 						<li>
                             <div id="code-editor"></div>
                         </li>
-						<ul> <!-- TODO: check if this u-list is necessary -->
-						</ul>
 					</section>
 
 					<section class="edit-tab" id="tab-url">
@@ -126,10 +124,11 @@
                             </li>
 							<li id="info">
 								You can specify the URL as specific or as broad as you'd like - just make sure to format it as a
-								<a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob pattern</a>. When the extension is running in the
-								background, it will search for the URL by using this pattern.
+								<a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob pattern</a>. If the ruleset is enabled, a match will
+                                be checked for using this pattern.
 								<br><br>
-								Example: &nbsp;<code>*github.com*</code>&nbsp; is any URL that includes 'github.com'.
+								Example: &nbsp;<code>reddit.com/r/*/top/</code>&nbsp; matches the 'top' page of any subreddit, as the
+                                <code>*</code> wildcard can be any character or string.
 							</li>
 						</ul>
 					</section>

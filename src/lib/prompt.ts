@@ -77,7 +77,6 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
 
         if (tab === "sourcetab") {
             // simulate a scroll every time the flask comes into view to eliminate a visual bug
-            // TODO: test me
             getFlaskElement(flask)!.querySelector("textarea")!.dispatchEvent(new MouseEvent("scroll"));
         }
     }

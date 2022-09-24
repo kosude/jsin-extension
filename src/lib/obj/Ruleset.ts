@@ -225,7 +225,7 @@ export default class Ruleset {
             this._key = this.generateKey();
 
             // initial run of ruleset details setters to initialise their respective HTML elements
-            // TODO: this is poor form since we could attempt to reuse code from above instead
+            // NOTE: this is poor form since we could attempt to reuse code from above instead
             this.name = this.name;
             this.url = this.url;
             this.src = this.src;

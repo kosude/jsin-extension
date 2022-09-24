@@ -27,8 +27,7 @@ function addOpenTabListener(element: HTMLElement, link: string): void {
 runner.runOnPage("popup", (): void => {
     document.addEventListener("DOMContentLoaded", (): void => {
         // make the appropriate buttons work
-        // TODO: update this when the repo merge happens (also update all other references to this URL!!!)
-        addOpenTabListener(document.querySelector("#ghlogo")!, "https://github.com/kosude/jsin-extension-2");
+        addOpenTabListener(document.querySelector("#ghlogo")!, "https://github.com/kosude/jsin-extension");
         addOpenTabListener(document.querySelector("#rulesets-btn")!, "./dashboard.html");
     });
 });

@@ -109,7 +109,7 @@ export default class RulesetList {
                 // check if key is undefined
                 if (key === "undefined") {
                     console.warn(`Encountered key of "undefined". jSin will attempt to remove this object.
-If this keeps happening, you might have found a bug. Please report it at https://github.com/kosude/jsin-extension-2/issues!`);
+If this keeps happening, you might have found a bug. Please report it at https://github.com/kosude/jsin-extension/issues!`);
 
                     // attempt to remove the problematic key
                     browser.storage.sync.remove(key);
