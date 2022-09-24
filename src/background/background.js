@@ -39,7 +39,21 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
                 // check if the ruleset URL selector includes this tab's URL
                 if (new RegExp(ruleset._details.url.replace(/([.?+^$[\]\\(){}|\/-])/g, "\\$1").replace(/\*/g, ".*")).test(tab.url)) {
-                    console.log(`Loaded src from ruleset "${ruleset._details.name}" to URL "${tab.url}" (matches "${ruleset._details.url}")`);
+                    // script + status message
+                    let executee = `console.log("[jSin] Successfully loaded src from ruleset \\"${ruleset._details.name}\\"` +
+                        `\\n\\t(\\"${tab.url}\\" matches selector \\"${ruleset._details.url}\\")");\n${ruleset._details.src}`;
+
+                    // execute the script saved for the tab URL
+                    browser.tabs.executeScript({
+                        code: executee
+                    }).then(() => {
+                        console.log(`Loaded src from ruleset "${ruleset._details.name}" to URL "${tab.url}" (matches "${ruleset._details.url}")`);
+                    }, (error) => {
+                        browser.tabs.executeScript({
+                            code: `console.error("[jSin] Failed to execute script. More information below...\\n\\n${error}");`
+                        });
+                        console.error(`Failed to execute script. More information below...\n\n${error}`);
+                    });
                 }
             }
         }, (error) => {

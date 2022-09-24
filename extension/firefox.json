@@ -2,7 +2,7 @@
 	"name": "jSin",
 	"version": "$pkgVersion",
 	"description": "Your average JavaScript injector.",
-	"manifest_version": 3,
+	"manifest_version": 2,
 
 	"icons": {
 		"16": "./jsin/16x16.png",
@@ -12,7 +12,7 @@
 		"128":"./jsin/128x128.png"
 	},
 
-	"action": {
+	"browser_action": {
 		"default_title": "jSin, your average JavaScript injector",
 		"default_icon": "./jsin/32x32.png",
 
@@ -22,10 +22,7 @@
 	"permissions": [
 		"activeTab",
 		"storage",
-		"tabs"
-	],
-
-    "host_permissions": [
+		"tabs",
 		"http://*/",
 		"https://*/"
     ],
