@@ -7,27 +7,20 @@
 jSin (or JSIN; **J**ava**S**cript **IN**jector) is a simple, free-and-open-source JavaScript injector extension.
 It aims to be as simple and minimal as possible.
 
-## Original version of jSin
+## Manifest V3 and jSin on Chrome
 
-This is technically jSin v2, since the project was originally written in basic HTML, CSS and JavaScript, and has since been rewritten to use
-TypeScript and Sass instead of JavaScript and CSS respectively. This was done to make development more bearable, so I can actually work on it in
-the future, since this original codebase was abhorrent.
+Since Google's [Manifest V3 rubbish](https://developer.chrome.com/docs/extensions/mv3/intro/) is gonna be forced on everyone soon,
+I've been trying to find ways to hack jSin to work around the rules that Google came out with. Unfortunately, Google really fucked everyone
+over with this thing, and that includes this project, which, as far as I can tell, is now impossible to maintain on Chrome.
 
-Since the first version, Node.js has been implemented to make it easier to 1. manage packages and 2. compile different versions for Chromium and
-Firefox separately. This makes it easier to transition to Manifest V3.
+Basically, it would require having scripts stored locally on your computer which is idiotic and kind of defeats the point when you could
+make a tool to inject those in minutes. Not to mention the fact that getting such an extension working on browsers without DevTools access
+(for instance in some schools and workplaces) is out of the question.
 
-Because the project was completely rewritten but the frontend is still basically the same as the original (at the time of first release), this
-won't actually be called 'jSin v2' but the original project will essentially (ideally?) be completely forgotten (it's not accessible anymore anyways).
-
-### Ruleset support
-
-**Rulesets created with the original version of jSin will still be in extension storage, but aren't compatible with this version of it. So make sure to
-save the scripts before deleting the original extension if you downloaded it.**
-
-## jSin will not be published on the Chrome Web Store
-
-To publish extensions to the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions), you need to register as a
-"Chrome Web Store Developer". This requires developers to be of a certain age (probably 18), which is fine. However, I would need to
-give Google my ID in order to verify this. which is never gonna happen.
-
-The Firefox equivalent does not seem to need this information, so the extension will hopefully be put on there eventually.
+Say you use Chrome, and you want to use this extension - as far as I can tell, you have three options:
+ - Waste hours of your life trying to find a workaround for this (pls contribute if you do this uwu)
+ - Wait for someone who's actually smart unlike me to find a hack
+ - Uninstall Chrome and download a respectable browser instead. In other words, [get Firefox](https://www.mozilla.org/en-US/firefox/new/).
+ 
+ The day that Mozilla implements Manifest V3 into Firefox will be the day this project is made completely useless, and I will probably
+ archive it or something.
