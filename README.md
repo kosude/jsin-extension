@@ -10,7 +10,7 @@ It aims to be as simple and minimal as possible.
 ## Manifest V3 and jSin on Chrome
 
 Since Google's [Manifest V3 rubbish](https://developer.chrome.com/docs/extensions/mv3/intro/) is gonna be forced on everyone soon,
-I've been trying to find ways to hack jSin to work around the rules that Google came out with. Unfortunately, Google really fucked everyone
+I've been trying to find ways to hack jSin to work around the rules that Google came out with. Unfortunately, Google really screwed everyone
 over with this thing, and that includes this project, which, as far as I can tell, is now impossible to maintain on Chrome.
 
 Basically, it would require having scripts stored locally on your computer which is idiotic and kind of defeats the point when you could
