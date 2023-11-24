@@ -11,6 +11,8 @@ minimal as possible.
 This extension works on all Chromium- and Firefox-based browsers - just download the corresponding version from the latest release and install
 it as a local extension in your browser.
 
+See the [build instructions](BUILD.md) for method of reproducing the distributable code.
+
 
 ### jSin will not be published to the Chrome Web Store
 
