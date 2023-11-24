@@ -3,6 +3,20 @@
 This project uses TypeScript in source code, and is also minified when built.
 
 
+## System requirements
+
+This build process should work on all major operating systems. Known environments are Linux and macOS.
+
+All dependencies are managed by [npm](https://www.npmjs.com/). Run the following command to install them before compilation:
+```
+npm i
+```
+
+#### Installing npm
+
+See the [npm home page](https://www.npmjs.com/) for installation instructions. Version 10.2.0 or above is known to work.
+
+
 ## Compiling
 
 To produce the distributable output for use and/or submission, run the appropriate build script defined in the `package.json` manifest from
