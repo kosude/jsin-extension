@@ -104,7 +104,7 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
     let generalTab = modal.querySelector("#tab-general")!;
 
     // set key display appropriately
-    generalTab.querySelector("#keydisplay")!.innerHTML = `ruleset key: ${ruleset.key}`;
+    generalTab.querySelector("#keydisplay")!.textContent = `ruleset key: ${ruleset.key}`;
 
     // disable name newlines
     generalTab.querySelector<HTMLTextAreaElement>("#name textarea")!.addEventListener("input", (e) => {
@@ -119,11 +119,11 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
     if (statusBuffer) {
         generalTab.querySelector("#status")!.classList.add("enabled");
         generalTab.querySelector("#status")!.classList.remove("disabled");
-        generalTab.querySelector("#status div")!.innerHTML = "ENABLED";
+        generalTab.querySelector("#status div")!.textContent = "ENABLED";
     } else {
         generalTab.querySelector("#status")!.classList.add("disabled");
         generalTab.querySelector("#status")!.classList.remove("enabled");
-        generalTab.querySelector("#status div")!.innerHTML = "DISABLED";
+        generalTab.querySelector("#status div")!.textContent = "DISABLED";
     }
 
     // add functionality to the ENABLED/DISABLED button in the general tab
@@ -139,11 +139,11 @@ export function editRulesetPrompt(ruleset: Ruleset, parentList: RulesetList, fla
         if (statusBuffer) {
             generalTab.querySelector("#status")!.classList.add("enabled");
             generalTab.querySelector("#status")!.classList.remove("disabled");
-            generalTab.querySelector("#status div")!.innerHTML = "ENABLED";
+            generalTab.querySelector("#status div")!.textContent = "ENABLED";
         } else {
             generalTab.querySelector("#status")!.classList.add("disabled");
             generalTab.querySelector("#status")!.classList.remove("enabled");
-            generalTab.querySelector("#status div")!.innerHTML = "DISABLED";
+            generalTab.querySelector("#status div")!.textContent = "DISABLED";
         }
     });
 

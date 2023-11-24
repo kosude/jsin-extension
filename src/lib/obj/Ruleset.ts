@@ -45,7 +45,7 @@ export default class Ruleset {
         // as this element should have been created in the constructor, it's generally safe to assume it is not null
         let nameElement: HTMLElement = this._element.querySelector("#name")!;
 
-        nameElement.innerHTML = val;
+        nameElement.textContent = val;
         nameElement.title = val;
     }
 
@@ -59,7 +59,7 @@ export default class Ruleset {
         // as this element should have been created in the constructor, it's generally safe to assume it is not null
         let urlElement: HTMLElement = this._element.querySelector("#url")!;
 
-        urlElement.innerHTML = val;
+        urlElement.textContent = val;
         urlElement.title = val;
     }
 
@@ -105,7 +105,7 @@ export default class Ruleset {
         editBtn.classList.add("material-symbols-outlined");
         editBtn.id = "edit";
         editBtn.title = "Edit this ruleset's properties";
-        editBtn.innerHTML = "edit";
+        editBtn.textContent = "edit";
         editBtn.addEventListener("click", (): void => {
             this.promptEdit(parentList, flask);
         });
@@ -115,7 +115,7 @@ export default class Ruleset {
         delBtn.classList.add("material-symbols-outlined");
         delBtn.id = "delete";
         delBtn.title = "Delete this ruleset";
-        delBtn.innerHTML = "delete";
+        delBtn.textContent = "delete";
         delBtn.addEventListener("click", (): void => {
             this.promptDelete(parentList);
         });

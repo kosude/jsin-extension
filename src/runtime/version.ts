@@ -16,5 +16,5 @@ const ExtensionVersion = require("../../package.json").version;
 
 document.querySelectorAll<HTMLSpanElement>(".version").forEach((element): void => {
     // update all spans with class 'version' to show the package version
-    element.innerHTML = `v${ExtensionVersion}`;
+    element.textContent = `v${ExtensionVersion}`;
 });
