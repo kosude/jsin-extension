@@ -4,12 +4,14 @@
 # jSin: your average JavaScript injector
 
 [![MIT Licence](https://img.shields.io/github/license/kosude/jsin-extension-2)](./LICENCE)
+[![Mozilla Add-on Version](https://img.shields.io/amo/v/jsin-extension)](https://addons.mozilla.org/en-GB/firefox/addon/jsin-extension/)
 
 jSin (or JSIN; **J**ava**S**cript **IN**jector) is a simple, free-and-open-source JavaScript injector extension. It aims to be as simple and
 minimal as possible.
 
-This extension works on all Chromium- and Firefox-based browsers - just download the corresponding version from the latest release and install
-it as a local extension in your browser.
+**For Firefox users, this extension is available on the
+[Mozilla add-ons store](https://addons.mozilla.org/en-GB/firefox/addon/jsin-extension/).** Otherwise, it still works on Chromium-based browsers -
+just download the corresponding version from the latest release and install it as a local extension in your browser.
 
 See the [build instructions](BUILD.md) for method of reproducing the distributable code.
 
