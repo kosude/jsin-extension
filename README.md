@@ -13,7 +13,7 @@ minimal as possible.
 [Mozilla add-ons store](https://addons.mozilla.org/en-GB/firefox/addon/jsin-extension/).** Otherwise, it still works on Chromium-based browsers -
 just download the corresponding version from the latest release and install it as a local extension in your browser.
 
-See the [build instructions](BUILD.md) for method of reproducing the distributable code.
+See the [build instructions](BUILD.md) for methods of reproducing the distributable code. Also see the project [to-do list](TODO.md).
 
 
 ### jSin will not be published to the Chrome Web Store
